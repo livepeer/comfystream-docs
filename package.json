@@ -1,12 +1,21 @@
 {
-  "name": "docs",
+  "name": "Comfystream Docs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Documentation for the comfystream open-source software.",
   "main": "index.js",
   "scripts": {
     "dev": "mintlify dev --port 3003"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "comfyui",
+    "artificial intelligence",
+    "realtime",
+    "video",
+    "audio",
+    "streaming",
+    "docs",
+    "documentation"
+  ],
+  "author": "Livepeer",
   "license": "ISC"
 }

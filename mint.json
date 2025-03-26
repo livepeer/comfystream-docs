@@ -1,14 +1,10 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Livepeer Pipelines",
-  "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
-  },
+  "name": "Comfystream Docs",
   "background": {
     "style": "grid"
   },
-  "theme": "quill",
+  "theme": "prism",
   "rounded": "sharp",
   "favicon": "/favicon.svg",
   "colors": {
@@ -23,16 +19,12 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hello@livepeer.org"
-    },
-    {
-      "name": "Dashboard",
-      "url": "https://pipelines.livepeer.org"
+      "url": "https://discord.com/channels/423160867534929930/1315731924253151344"
     }
   ],
   "topbarCtaButton": {
     "type": "github",
-    "url": "https://github.com/livepeer/pipelines/tree/main/apps/docs"
+    "url": "https://github.com/livepeer/comfystream"
   },
   "anchors": [
     {
@@ -48,10 +40,6 @@
   ],
   "tabs": [
     {
-      "name": "Knowledge Base",
-      "url": "knowledge-base"
-    },
-    {
       "name": "Technical Documentation",
       "url": "technical"
     }
@@ -60,25 +48,7 @@
     {
       "group": "Get Started",
       "pages": [
-        "knowledge-base/get-started/what-is-pipeline",
-        "knowledge-base/get-started/try-a-pipeline"
-      ]
-    },
-    {
-      "group": "Streamer Tutorials",
-      "pages": [
-        "knowledge-base/tutorials/create-a-stream",
-        "knowledge-base/tutorials/stream-into-pipeline-obs",
-        "knowledge-base/tutorials/stream-to-twitch",
-        "knowledge-base/tutorials/stream-to-youtube",
-        "knowledge-base/tutorials/stream-to-x"
-      ]
-    },
-    {
-      "group": "Get Started",
-      "pages": [
-        "technical/getting-started/install-comfystream",
-        "technical/getting-started/publish-pipeline"
+        "technical/getting-started/install-comfystream"
       ]
     },
     {
@@ -90,21 +60,14 @@
       ]
     },
     {
-    "group": "Reference",
-      "pages": ["knowledge-base/reference/pricing"]
-    },
-    {
       "group": "Reference",
       "pages": [
-        "technical/reference/download-models",
-        "technical/reference/add-sd-loras",
-        "technical/reference/pipelines-vs-workflows"
+        "technical/reference/download-models"
       ]
     }
   ],
   "footerSocials": {
     "x": "https://x.com/livepeer",
-    "github": "https://github.com/livepeer",
-    "linkedin": "https://linkedin.com/company/livepeer"
+    "github": "https://github.com/livepeer"
   }
 }
