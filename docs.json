@@ -1,0 +1,76 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Comfystream Docs",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373"
+  },
+  "favicon": "/favicon.ico",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Technical Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "technical/getting-started/introduction",
+              "technical/getting-started/install-comfystream"
+            ]
+          },
+          {
+            "group": "Custom Nodes",
+            "pages": [
+              "technical/reference/available-nodes",
+              "technical/reference/advanced-node-usage",
+              "technical/reference/performance-recommendations"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "technical/reference/download-models"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Community",
+          "href": "https://discord.gg/livepeer",
+          "icon": "discord"
+        },
+        {
+          "anchor": "Blog",
+          "href": "https://mirror.xyz/livepeer.eth",
+          "icon": "newspaper"
+        }
+      ]
+    }
+  },
+  "background": {
+    "decoration": "grid"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "https://discord.com/channels/423160867534929930/1315731924253151344"
+      }
+    ],
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/livepeer/comfystream"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/livepeer",
+      "github": "https://github.com/livepeer"
+    }
+  }
+}
