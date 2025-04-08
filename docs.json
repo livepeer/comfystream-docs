@@ -16,22 +16,8 @@
           {
             "group": "Get Started",
             "pages": [
-              "technical/getting-started/introduction",
-              "technical/getting-started/install-comfystream"
-            ]
-          },
-          {
-            "group": "Custom Nodes",
-            "pages": [
-              "technical/reference/available-nodes",
-              "technical/reference/advanced-node-usage",
-              "technical/reference/performance-recommendations"
-            ]
-          },
-          {
-            "group": "Reference",
-            "pages": [
-              "technical/reference/download-models"
+              "technical/get-started/introduction",
+              "technical/get-started/install"
             ]
           }
         ]
