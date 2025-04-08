@@ -35,6 +35,24 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "ComfyUI Stream Pack",
+        "groups": [
+          {
+            "group": "Custom Nodes",
+            "pages": [
+              {
+                "group": "Available Nodes",
+                "icon": "server",
+                "pages": [
+                  "stream-pack/custom-nodes/nodes/overview",
+                  "stream-pack/custom-nodes/nodes/feature_bank"
+                ]
+              }
+            ]
+          }
+        ]
       }
     ],
     "global": {
