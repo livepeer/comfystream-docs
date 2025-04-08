@@ -24,7 +24,51 @@
             "group": "Get Started",
             "pages": [
               "technical/get-started/introduction",
-              "technical/get-started/install"
+              "technical/get-started/install",
+              "technical/get-started/quickstart",
+              "technical/get-started/streaming"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Knowledge Base",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "knowledge-base/get-started/introduction",
+              "knowledge-base/get-started/core-components",
+              "knowledge-base/get-started/optimize-performance",
+              "knowledge-base/get-started/optimize-quality"
+            ]
+          },
+          {
+            "group": "Use Cases",
+            "pages": [
+              "knowledge-base/use-cases/introduction",
+              "knowledge-base/use-cases/facial-tracking",
+              "knowledge-base/use-cases/background-augmentation"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "ComfyUI Stream Pack",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "stream-pack/get-started/introduction",
+              "stream-pack/get-started/install",
+              "stream-pack/get-started/quickstart"
+            ]
+          },
+          {
+            "group": "Custom Nodes",
+            "pages": [
+              "stream-pack/custom-nodes/available-nodes",
+              "stream-pack/custom-nodes/third-party-nodes"
             ]
           },
           {
