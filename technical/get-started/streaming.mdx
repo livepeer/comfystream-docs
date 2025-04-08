@@ -1,5 +1,35 @@
 ---
 title: Stream using OBS
-description: "Stream your realtime AI workflows using OBS"
+description: "Stream your realtime AI workflows using OBS and browser source from comfystream UI"
 icon: "video"
 ---
+
+## Prerequisites
+
+### Install OBS
+
+Download and install [OBS Studio](https://obsproject.com/) for your operating system.
+
+### Access ComfyStream UI
+
+After running your [first workflow](/technical/get-started/quickstart#running-your-first-workflow), once the stream is live you will see a small frame icon in the bottom
+ right corner of the video output window. 
+ ![frame icon](../../images/OBS-capture.png)
+
+## Start the OBS streaming
+
+1. Click the frame icon icon to open the ComfyStream UI output video in a new fullscreen new tab.
+
+2. Copy the URL from the new tab.
+
+3. Open OBS Studio and click on **+** under **Sources** and add your url you copied as browser source,
+   change the height and width to 1024 to match the resolution of the video.    
+
+4. You should start to see the stream in the OBS Studio, you can move the frame to best suit your need within the 
+    OBS Studio screen.
+
+   
+## Streaming from OBS to Livepeer
+Follow the [ Livepeer Documentation](https://docs.livepeer.org/developers/guides/stream-via-obs) to stream from OBS to Livepeer.
+
+
