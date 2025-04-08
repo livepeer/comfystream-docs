@@ -2,12 +2,19 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Comfystream Docs",
+  "logo": {
+    "dark": "/logo/logo-light-512px.svg",
+    "light": "/logo/logo-dark-512px.svg"
+  },
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
     "dark": "#0D9373"
   },
-  "favicon": "/favicon.ico",
+  "favicon": {
+    "dark": "/favicon-light-32px.png",
+    "light": "/favicon-dark-32px.png"
+  },
   "navigation": {
     "tabs": [
       {
