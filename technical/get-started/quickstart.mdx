@@ -4,39 +4,55 @@ description: "Run your first real-time AI workflow with ComfyStream and see it l
 icon: "play"
 ---
 
-## Select a Workflow
-After you have successfully installed ComfyStream by following the [installation guide](install) you can start by selecting a workflow to run.
+After you have successfully installed ComfyStream by following the [installation guide](install), you can run your first AI workflow.
 
-1. **Download Workflows:**
-There are example workflows in the github repository [Comfystream](https://github.com/livepeer/comfystream/tree/main/workflows/comfystream)
-choose anyone to test the setup.
+## Prerequisites
 
-2. **Open ComfyStream UI Preview:** 
-When you click the ComfyStream node and select **ComfyStream UI Preview** in ComfyUI, it will open a window should look similar to the image below.
-![comfystream-ui-dialog-box.png](../../images/comfystream-ui-dialog-box.png)
+### Download Example Workflows
+There are example workflows in the GitHub repository [Comfystream](https://github.com/livepeer/comfystream/tree/main/workflows/comfystream). Download one to test your setup.
 
-3. **Open Comfystream UI in a new tab:**
-Alternatively, If you want to run the workflows in new tab rather than inside of the ComfyUI, you can click **Open ComfyStream UI** from [ComfyStream Menu](install#accessing-comfystream).
-This will open similar dialog box as above image in a new tab.
+## Accessing ComfyStream UI
+
+<AccordionGroup>
+  <Accordion title="ComfyUI Preview Window">
+    When you click the ComfyStream node and select **ComfyStream UI Preview** in ComfyUI, it will open a window that looks similar to the image below:
+    ![comfystream-ui-dialog-box.png](../../images/comfystream-ui-dialog-box.png)
+  </Accordion>
+
+  <Accordion title="Standalone Browser Tab">
+    If you prefer to run workflows in a new tab rather than inside ComfyUI, click **Open ComfyStream UI** from the [ComfyStream Menu](install#accessing-comfystream).
+    This will open a similar dialog box in a new browser tab.
+  </Accordion>
+</AccordionGroup>
+
 <Note>
-Opening UI will ask for permission to access your video and audio so it can stream your webcam and microphone. You need to provide access to it inorder to use the comfystream.
+Opening the UI will ask for permission to access your video and audio so it can stream your webcam and microphone. You need to provide access to use ComfyStream.
 </Note>
 
-4. **Select your workflow:**
-Click on the **Choose files** and select the previously downloaded workflow from [Comfystream](https://github.com/livepeer/comfystream/tree/main/workflows/comfystream) repository.
+## Running Your First Workflow
 
-5. **Start ComfyStream:**
-Click on **Start Stream** to start the workflow. Once you start the stream, it will run the workflow in the background and you will see a **Starting Stream..** at the bottom
-of the page, depending upon the worklfow complexity it will take some time to start the stream, please wait patiently. 
+<Steps>
+  <Step title="Select your workflow">
+    Click on **Choose files** and select the previously downloaded workflow from the [Comfystream repository](https://github.com/livepeer/comfystream/tree/main/workflows/comfystream).
+  </Step>
+  
+  <Step title="Start ComfyStream">
+    Click on **Start Stream** to start the workflow. Once you start the stream, it will run the workflow in the background and you will see **Starting Stream..** at the bottom of the page.
+    
+    Depending on the workflow complexity, it may take some time to start the stream. Please wait patiently.
+  </Step>
+  
+  <Step title="Enjoy your stream">
+    Once the stream starts you will see the AI effects being applied in real-time.
+  </Step>
+</Steps>
+
+## Troubleshooting
+
 <Note>
-For advanced users, you can check the logs in the comfystream server to see if everything is loading properly without any major errors similar to image below.
+For advanced users, you can check the logs in the ComfyStream server to see if everything is loading properly without any major errors.
 </Note>
 
+<Accordion title="Reference Image - Server Logs">
 ![comfystream-logs-image.png](../../images/comfystream-logs-image.png)
-
-
-
-
-
-
-
+</Accordion>
