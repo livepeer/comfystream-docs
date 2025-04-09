@@ -30,6 +30,20 @@
             ]
           },
           {
+            "group": "Custom Nodes",
+            "pages": [
+              {
+                "group": "Stream Pack",
+                "icon": "server",
+                "pages": [
+                  "technical/custom-nodes/stream-pack/overview",
+                  "technical/custom-nodes/stream-pack/feature-bank"
+                ]
+              },
+              "technical/custom-nodes/third-party-nodes"
+            ]
+          },
+          {
             "group": "References",
             "pages": [
               "technical/references/changelog",
