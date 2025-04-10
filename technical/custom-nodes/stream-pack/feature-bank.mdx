@@ -3,27 +3,121 @@ title: "Feature Bank Node"
 description: "Improve temporal consistency using feature banks."
 ---
 
-## Introduction
+## 🎬 Introduction
 
-A brief overview of what the Feature Bank is, with a reference to the related research paper.
+The Feature Bank is a novel component designed to enhance temporal consistency and provide stylistic control in generative video models, 
+particularly in real-time applications. Inspired by the research paper “LOOKING BACKWARD: STREAMING VIDEO-TO-VIDEOTRANSLATION WITH FEATURE BANKS” ([🔗](https://arxiv.org/pdf/2405.15757) ), 
+our ComfyUI node implements this concept by storing and reusing key information from previous frames during video generation. 
+This approach reduces flickering and maintains a more coherent visual flow across the generated video. 🎞️
 
-## Showcase
+## 🖼️ Showcase
 
-A side-by-side comparison with a regular workflow to highlight the improvements made possible by using the Feature Bank.
+To illustrate the improvements offered by the Feature Bank, a side-by-side comparison with a regular workflow (without the Feature Bank) would typically highlight the following:
 
-## Usage
+📉 Reduced Flickering: Noticeably less jitter and instability, especially in background elements and consistent objects across frames.
 
-- An image of the workflow showing how the Feature Bank is integrated.
-- A clear explanation of how to add it to other workflows.
-- A link to example workflow files.
-- Descriptions of relevant parameters and how they affect performance.
+🔁 Improved Temporal Consistency: Objects and textures maintain a more stable appearance from frame to frame, preventing jarring changes or distortions.
 
-## Strengths and Limitations
+🎥 Smoother Motion: Overall visual flow appears more fluid and less prone to abrupt transitions.
 
-- Scenarios where the node performs well.
-- Cases where it may fall short or require adjustments.
+🖼️
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/LhjW8TJjPpU?si=0zlwZzWyf1fsG0Xo"
+  title="Livepeer video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+/>
 
-## Tips and Best Practices
 
-- Guidance on how to get the most out of the Feature Bank.
-- Suggestions based on internal testing or research insights.
+## 🛠️ Usage
+
+**🔗 Workflow Integration**
+
+The Feature Bank is implemented as a custom ComfyUI node and can be seamlessly integrated into your existing workflows.
+
+🧩 ![Feature Bank Node Integration](https://huggingface.co/datasets/ruffy369/sample-images-videos/resolve/main/feature_bank_node.png)
+
+In a typical generation pipeline, the Feature Bank node should be placed after the self-attention operations within the diffusion model, 
+and before any subsequent processing steps. It requires connections to the key, value, and output tensors from the attention layers. What it basically means is
+that you can use it in any node that has a self-attention layer, such as the Stable Diffusion model.
+The Feature Bank node will automatically handle the storage and retrieval of features, ensuring that the most relevant information is used to maintain temporal consistency.
+
+**➕ Adding to Other Workflows**
+
+To add the Feature Bank node to your ComfyUI workflows:
+
+✅ Ensure the Feature Bank custom node is installed. This may require installing a specific custom node repository in ComfyUI.
+
+🖱️ In the ComfyUI interface, right-click on an empty area of the graph.
+
+➕ Select “Add Node.”
+
+🔍 Locate the Feature Bank node—it may be under a custom category or the name of the repository like `StreamPack/model_patches/unet`.
+
+🧱 Click on the Feature Bank node to add it to your workflow.
+
+🔗 Connect the required inputs and outputs. Typically, you'll need to you need to just put it between model checkpoint loader
+node and the sampling node.
+
+**📂 Example Workflow Files**
+
+We will provide example workflow files that showcase both basic integration and advanced usage scenarios. Please refer to these for practical implementation guidance.
+
+📂 Here is an example [workflow](https://github.com/RUFFY-369/ComfyUI-FeatureBank/blob/main/examples/SD%201.5%20MultiControlNet%20DepthAnything%20FeatureBank.json) that demonstrates the integration of the Feature Bank node in a workflow.
+
+**⚙️ Parameter Descriptions**
+
+The Feature Bank node includes the following key parameters:
+
+📊 Feature Cache Interval: An integer that determines how frequently the Feature Bank caches features from the attention layers. For example, a value of 4 stores features every 4 frames (frames 0, 4, 8, etc.). This parameter controls the temporal granularity of the feature bank. Lower values result in more frequent caching, potentially improving consistency but increasing memory usage.
+
+🔁 Use Feature Injection: A boolean (True/False) value that enables or disables the injection of cached features back into the attention mechanism. Setting it to True activates the Feature Bank’s influence on current frame generation.
+
+🎚️ Feature Injection Strength: A float (typically between 0 and 1) that controls how strongly the injected cached features influence the current generation.
+0️⃣ 0: No injection; the Feature Bank is effectively disabled.
+💯 1: Full injection; cached features heavily guide the current frame.
+🔄 Values between 0 and 1 allow a blended approach, subtly incorporating past-frame data.
+
+🔍 Feature Similarity Threshold: Sets the minimum cosine similarity between the current frame and cached features for feature injection to occur.
+Only features above this threshold are reused, helping maintain consistency 🎯 across similar regions in frames.
+
+🧠💾 Feature Bank Max Frames: Defines the max number of past frames to cache attention features from. Older features are discarded as new ones are added,
+keeping memory use efficient 📉.
+
+## 📈 Strengths and Limitations
+
+**✅ Strengths**
+
+🧠 Improved Frame-to-Frame Consistency: By reusing attention patterns from previous frames, the Feature Bank significantly reduces flickering and helps
+maintain visual coherence.
+
+🎨 Style Control: Users can influence how closely each frame follows the style and content of earlier frames by adjusting the Feature Injection Strength.
+This allows either stylistic consistency or smooth stylistic evolution.
+
+🧪 Creative Exploration: Selectively injecting past features can lead to novel stylistic variations or evolving visual themes, opening creative possibilities.
+
+**⚠️ Limitations**
+
+⚠️ Potential for Reduced Novelty: High Feature Injection Strength may cause the video to become overly reliant on past frames, limiting the introduction of
+new details or changes.
+
+⚙️ Parameter Tuning Required: Finding the right balance between consistency and novelty may require experimentation with the Interval and Feature Injection
+Strength parameters. Optimal settings vary depending on content and desired outcome.
+
+🧵 Increased Memory Usage: Storing features from previous frames naturally increases memory consumption. The impact depends on video resolution, tensor size,
+and the Interval setting.
+
+## 💡 Tips and Best Practices
+
+📈 Experiment with the Interval: Start with a moderate value (e.g., 4) and adjust based on how dynamic your scene is. Rapid changes may benefit from a lower interval, while static scenes can use higher values.
+
+🎛️ Fine-tune Feature Injection Strength: This is key to balancing consistency and novelty. Start with a value around 0.5, then adjust as needed. Lower values allow more variation; higher values increase consistency.
+
+🧮 Monitor Memory Usage: Be mindful of memory impact, especially when using lower intervals or generating high-resolution videos.
+
+🧍‍♂️ Consider the Content: Effectiveness varies by content. The Feature Bank is particularly effective at maintaining consistency for characters, objects, and background elements.
+
+🗺️ Combine with Depth Map Improvements: As detailed in the main report, combining the Feature Bank with better depth maps (e.g., Depth Anything v2 + Kalman filter) results in even greater temporal consistency and improved overall video quality.
