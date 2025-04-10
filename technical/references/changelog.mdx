@@ -1,0 +1,54 @@
+---
+title: "Changelog"
+description: "Track the latest updates, features, improvements, and bug fixes for the entire ComfyStream toolkit."
+icon: "list-timeline"
+---
+
+<Update label="March 2025" description="v0.0.5" tags={["comfystream"]}>
+  ## Metrics, Developer Experience, and Reliability Improvements
+
+  <Note>View the full ComfyStream changelog on [GitHub](https://github.com/livepeer/comfystream/releases).</Note>
+
+
+  This release introduces real-time **metrics support**, enhanced **developer experience**, and a renewed focus on **quality and reliability**. Early adopters can now monitor workflow performance via Prometheus or API endpoints, while enjoying a smoother and more stable development experience.
+
+  ### Documentation and Branding
+
+  We launched the first version of the **ComfyStream documentation site**, featuring onboarding guides, node usage examples, and a dedicated **Media Kit** with official logos and assets.
+
+  ### New Features
+  - **Metrics and Stream Stats:** Monitor performance in real time via Prometheus or API  
+  - **Ansible Playbook:** Simplified setup across multiple infrastructure providers  
+  - **Combo Panel (Experimental):** Early UI for grouped node control  
+  - **Log Level Configuration:** Adjust ComfyUI logging verbosity via environment variables  
+  - **Search Query Support:** Quickly access preset queries to streamline stream startup
+
+  ### Improvements
+  - **Performance Enhancements:** Improved FPS and reduced latency  
+  - **Docker Build Optimization:** Speeds up builds and ensures consistent environments  
+  - **Developer Tooling:** Improved setup with devcontainers, Ansible, and HTTPS support in VSCode  
+
+  ### Bug Fixes
+  - Resolved Safari compatibility issues  
+  - Fixed camera and microphone selection bugs  
+  - Addressed audio input stability issues  
+  - Fixed preview node display and rendering problems
+</Update>
+
+<Update label="February 2025" description="v0.0.3" tags={["comfystream"]}>
+  ## ComfyStream Enters Public Alpha
+
+  <Frame>
+    ![Comfystream Custom Node](/images/changelog/comfystream-custom-node.png)
+  </Frame>
+
+  ComfyStream is now in **public alpha**, ready for early adopters to explore real-time AI workflows within ComfyUI. This release focuses on improved stability, a better developer experience, and two major features: a **custom ComfyUI node** and **real-time audio input support**.
+
+  ### Custom Node
+
+  ComfyStream is available as a custom node via the [ComfyUI Node Registry](https://registry.comfy.org/nodes/comfystream), making it easy to integrate into your workflows and unlock real-time streaming capabilities.
+  
+  ### Audio Support
+
+  ComfyStream now supports real-time audio input, enabling features like voice modulation and sound effects. Audio can run alongside video in your workflows for multi-modal processing.
+</Update>
