@@ -1,5 +1,5 @@
 {
-  "name": "Comfystream Docs",
+  "name": "comfystream-docs",
   "version": "1.0.0",
   "description": "Documentation for the comfystream open-source software.",
   "main": "index.js",
