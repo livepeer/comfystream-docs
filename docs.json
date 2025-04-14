@@ -2,12 +2,19 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Comfystream Docs",
+  "logo": {
+    "dark": "/logo/logo-light-512px.svg",
+    "light": "/logo/logo-dark-512px.svg"
+  },
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
     "dark": "#0D9373"
   },
-  "favicon": "/favicon.ico",
+  "favicon": {
+    "dark": "/favicon-light-32px.png",
+    "light": "/favicon-dark-32px.png"
+  },
   "navigation": {
     "tabs": [
       {
@@ -21,47 +28,12 @@
               "technical/get-started/quickstart",
               "technical/get-started/streaming"
             ]
-          }
-        ]
-      },
-      {
-        "tab": "Knowledge Base",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": [
-              "knowledge-base/get-started/introduction",
-              "knowledge-base/get-started/core-components",
-              "knowledge-base/get-started/optimize-performance",
-              "knowledge-base/get-started/optimize-quality"
-            ]
           },
           {
-            "group": "Use Cases",
+            "group": "References",
             "pages": [
-              "knowledge-base/use-cases/introduction",
-              "knowledge-base/use-cases/facial-tracking",
-              "knowledge-base/use-cases/background-augmentation"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "ComfyUI Stream Pack",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "stream-pack/get-started/introduction",
-              "stream-pack/get-started/install",
-              "stream-pack/get-started/quickstart"
-            ]
-          },
-          {
-            "group": "Custom Nodes",
-            "pages": [
-              "stream-pack/custom-nodes/available-nodes",
-              "stream-pack/custom-nodes/third-party-nodes"
+              "technical/references/changelog",
+              "technical/references/media-kit"
             ]
           }
         ]
