@@ -32,9 +32,10 @@
           {
             "group": "Custom Nodes",
             "pages": [
+              "technical/custom-nodes/comfystream-nodes",
               {
                 "group": "Stream Pack",
-                "icon": "server",
+                "icon": "box",
                 "pages": [
                   "technical/custom-nodes/stream-pack/overview",
                   "technical/custom-nodes/stream-pack/feature-bank"

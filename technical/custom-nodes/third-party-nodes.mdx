@@ -3,3 +3,58 @@ title: "Third-Party Nodes"
 description: "Discover recommended third-party ComfyUI nodes to enhance your real-time AI workflows."
 icon: "puzzle-piece"
 ---
+
+import { GitHubFooter } from "/snippets/github-footer.mdx";
+
+The ComfyStream team has identified several third-party nodes that are highly compatible with ComfyStream and can enhance your real-time AI workflows. While these nodes are not maintained by the ComfyStream team, they are recommended for their functionality and compatibility.
+
+## Optimization Nodes
+
+Nodes in this category are designed to improve performance and reduce latency in real-time workflows.
+
+<AccordionGroup>
+  <Accordion header="NVIDIA TensorRT" title="NVIDIA TensorRT">
+    Optimizes stable diffusion performance by generating a static TensorRT engine based on Stable Diffusion parameters. This reduces inference time, making it ideal for low-latency workflows.
+
+    <Tip>
+      Explore the [Example Workflow](https://gist.github.com/yondonfu/592a04e075e790981cd401124e0d84e4#file-api-workflow-json).
+    </Tip>
+
+    <GitHubFooter url="https://github.com/yondonfu/ComfyUI_TensorRT/tree/quantization_with_controlnet_fixes"/>
+
+  </Accordion>
+</AccordionGroup>
+
+## Node Packs
+
+Node packs include collections of nodes designed for specific use cases, such as real-time video processing and control.
+
+<AccordionGroup>
+  <Accordion header="ComfyUI Real-Time Nodes" title="ComfyUI Real-Time Nodes">
+    A suite of nodes for real-time video processing, including tools for parameter adjustments, motion detection, and FPS monitoring. Ideal for interactive workflows with live input and output.
+
+    <Tip>
+      Explore the [Example Workflows](https://github.com/ryanontheinside/ComfyUI_RealTimeNodes/tree/main/examples).
+    </Tip>
+
+    <GitHubFooter url="https://github.com/ryanontheinside/ComfyUI_RealTimeNodes"/>
+
+  </Accordion>
+</AccordionGroup>
+
+## Task-Specific Nodes
+
+Task-specific nodes are designed for specialized workflows, such as depth estimation or object tracking.
+
+<AccordionGroup>
+  <Accordion header="Depth Anything TensorRT" title="Depth Anything TensorRT">
+    Generates depth maps from RGB frames with low latency and efficient VRAM usage. Useful for workflows requiring depth-based effects or object tracking.
+
+    <Tip>
+      Explore the [Example Workflow](https://github.com/livepeer/comfystream/blob/main/workflows/comfystream/depth-anything-v2-trt-example-api.json).
+    </Tip>
+
+    <GitHubFooter url="https://github.com/yuvraj108c/ComfyUI-Depth-Anything-Tensorrt"/>
+
+  </Accordion>
+</AccordionGroup>

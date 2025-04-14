@@ -1,0 +1,14 @@
+{/* Github Footer */}
+export const GitHubFooter = ({ url, float = "right" }) => (
+  <div style={{ float: float, textDecoration: "none"}}>
+    <Icon icon="github" iconType="brands" color="white"/>
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{marginLeft: "5px"}}
+    >
+      GitHub
+    </a>
+  </div>
+);
