@@ -1,4 +1,42 @@
 ---
 title: "Overview"
-description: "Explore the StreamPack custom nodes for ComfyUI and their functionality in real-time AI workflows."
+description: "Discover StreamPack's custom nodes for enhancing video, audio, and data workflows with real-time performance."
 ---
+
+The ComfyUI-Stream-Pack provides a [custom node pack](https://github.com/livepeer/ComfyUI-Stream-Pack) for ComfyUI, designed specifically for building real-time video, audio, and data pipelines. These tools enhance output quality, optimize performance, and include benchmarking and profiling features to help users create and refine efficient AI-driven workflows.
+
+<Tip>
+  We also recommend **third-party nodes** from other teams that work well with
+  real-time workflows. While not maintained by the ComfyStream team, these nodes
+  are highly compatible and can enhance your pipelines. Learn more on the
+  [Third-Party Nodes](/technical/custom-nodes/third-party-nodes) page.
+</Tip>
+
+## StreamPack Nodes Overview
+
+StreamPack includes a variety of custom nodes grouped into four main categories: **Video Quality Nodes**, which enhance video output; **Performance Nodes**, which optimize real-time workflows; **Benchmarking and Profiling Tools**, which help analyze and refine workflow efficiency; and **Task-Specific Nodes**, which provide specialized functionality for real-time video workflows.
+
+{/* <!-- prettier-ignore-start --> */}
+
+<Accordion title="Video Quality Nodes">
+  - [Feature Bank](/technical/custom-nodes/stream-pack/feature-bank): Improves video quality by using information from previous frames to reduce flickering and ensure smoother transitions.
+  - **Super Resolution**: A high-performance upscaling node that uses neural network models like FSRCNN and EDSR to enhance video resolution in real-time, balancing speed and quality.
+</Accordion>
+{/* <!-- prettier-ignore-end --> */}
+
+<Accordion title="Performance Nodes">
+  The nodes in this category are still under development and will be released
+  soon.
+</Accordion>
+
+<Accordion title="Benchmarking and Profiling Tools">
+  The nodes in this category are still under development and will be released
+  soon.
+</Accordion>
+
+{/* <!-- prettier-ignore-start --> */}
+
+<Accordion title="Task-Specific Nodes">
+  - **Facial Mesh**: A MediaPipe Face Mesh node that detects and tracks facial landmarks. It can be used as an additional ControlNet input to enhance facial tracking in real-time workflows.
+</Accordion>
+{/* <!-- prettier-ignore-end --> */}
