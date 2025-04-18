@@ -24,7 +24,9 @@
             "group": "Get Started",
             "pages": [
               "technical/get-started/introduction",
-              "technical/get-started/install"
+              "technical/get-started/install",
+              "technical/get-started/quickstart",
+              "technical/get-started/streaming"
             ]
           },
           {

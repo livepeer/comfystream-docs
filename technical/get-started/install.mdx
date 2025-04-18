@@ -1,131 +1,317 @@
 ---
 title: "Install ComfyStream"
-description: "A quick start guide to running your first AI video workflow with ComfyStream"
+description: "Learn how to install ComfyStream using Docker or as a custom node for ComfyUI."
 icon: "download"
 ---
 
-ComfyStream is available as a docker image at [livepeer/comfystream:stable](https://hub.docker.com/r/livepeer/comfystream/tags?name=stable). An NVIDIA GPU is required to run ComfyStream. 
+ComfyStream is available as a custom node through the [ComfyUI Manager](https://registry.comfy.org/nodes/comfystream) or as a Docker image. Follow the method that best suits your setup.
 
-Choose a platform to install ComfyStream:
 <CardGroup cols={2}>
-  <Card title="Local GPU" icon="square-1" href="#local-gpu">
-    Run ComfyStream and ComfyUI on Linux or Windows with a local GPU
+  <Card
+    title="ComfyUI Manager (Recommended)"
+    icon="plug"
+    href="#install-with-comfyui-manager"
+  >
+    Install ComfyStream directly into an existing ComfyUI setup.
   </Card>
-  <Card title="Remote GPU" icon="square-2" href="#remote-gpu">
-    Run ComfyStream and ComfyUI on RunPod with a rented GPU
+  <Card title="Docker (Self-contained)" icon="box" href="#install-with-docker">
+    Run ComfyStream and ComfyUI together in a prebuilt Docker container.
   </Card>
 </CardGroup>
 
-<h2>Local GPU</h2>
+---
 
-### Prerequisites
+## Install with ComfyUI Manager
+
+If you already have ComfyUI installed, the easiest way to install ComfyStream is via the built-in **ComfyUI Manager**.
+
+{/* <!-- prettier-ignore-start --> */}
+
+<Steps>
+  <Step title="Install ComfyUI Manager (if needed)">
+    Follow the [ComfyUI Manager installation guide](https://docs.comfy.org/essentials/core-concepts/nodes#installing-the-manager) if you haven't already.
+  </Step>
+  <Step title="Install ComfyStream via Manager">
+    1. Launch **ComfyUI**.
+    2. Open the **Manager** tab.
+    3. Search for **ComfyStream** and click **Install**.
+  </Step>
+  <Step title="Restart ComfyUI">
+    Restart your ComfyUI server to load the new custom node.
+  </Step>
+</Steps>
+{/* <!-- prettier-ignore-end --> */}
+
+{/* <!-- prettier-ignore-start --> */}
+
+<Accordion title="Manual Installation (Alternative)">
+  If you prefer to install ComfyStream manually instead of using the Manager, follow these steps:
+  ```bash
+  cd /path/to/ComfyUI/custom_nodes/
+  git clone https://github.com/livepeer/comfystream.git
+  cd comfystream
+  pip install -r requirements.txt
+  ```
+  After completing the installation, restart ComfyUI to load the new custom node.
+</Accordion>
+{/* <!-- prettier-ignore-end --> */}
+
+---
+
+## Install with Docker
+
+Run ComfyStream in a prebuilt Docker environment, either on your own GPU or a cloud server.
+
+<CardGroup cols={2}>
+  <Card title="Local GPU" icon="desktop" href="#local-gpu">
+    Run ComfyStream locally with your own GPU.
+  </Card>
+  <Card title="Remote GPU" icon="cloud" href="#remote-gpu">
+    Deploy ComfyStream on a remote GPU using RunPod or Ansible.
+  </Card>
+</CardGroup>
+
+### Local GPU
+
+If you have a compatible GPU on Windows or Linux, you can run ComfyStream locally via Docker.
+
+#### Prerequisites
 
 First, install the required system software:
+
 <AccordionGroup>
   <Accordion title="Linux">
-    - [Docker Engine](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
-    - [NVIDIA CUDA Toolkit](https://developer.nvidia.com/cuda-12-6-3-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu)
-    - [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+    - [Docker
+    Engine](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+    - [NVIDIA CUDA
+    Toolkit](https://developer.nvidia.com/cuda-12-6-3-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu)
+    - [NVIDIA Container
+    Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
   </Accordion>
-
   <Accordion title="Windows">
-    1. Install WSL 2:
-      - From a new command prompt, run: `wsl --install`
-      - Update WSL if needed: `wsl.exe --update`
-    2. Launch a new Terminal, then open a tab for **Ubuntu (WSL)**.
-    3. Inside of WSL, install [NVIDIA CUDA Toolkit](https://developer.nvidia.com/cuda-12-6-3-download-archive?target_os=Windows&target_arch=x86_64&target_version=11&target_type=exe_local) for WSL.
-    4. Install [Docker Desktop for Windows](https://docs.docker.com/get-started/introduction/get-docker-desktop/) for Windows.
-    5. Ensure WSL 2 Engine is enabled in Docker Desktop settings.
-    6. Inside of WSL, run `docker ps` to verify you have access to docker. 
-    7. From the WSL Terminal, continue with the steps below to setup the local environment
+    <Steps>
+      <Step title="Install WSL 2">
+        - From a new command prompt, run: `wsl --install` - Update WSL if
+        needed: `wsl.exe --update`
+      </Step>
+      <Step title="Launch Ubuntu in Terminal">
+        Open a new **Ubuntu (WSL)** tab from Terminal.
+      </Step>
+      <Step title="Install NVIDIA CUDA Toolkit">
+        Inside of WSL, install [NVIDIA CUDA
+        Toolkit](https://developer.nvidia.com/cuda-12-6-3-download-archive?target_os=Windows&target_arch=x86_64&target_version=11&target_type=exe_local).
+      </Step>
+      <Step title="Install Docker Desktop">
+        Install [Docker
+        Desktop](https://docs.docker.com/get-started/introduction/get-docker-desktop/).
+      </Step>
+      <Step title="Enable WSL 2 Engine in Docker">
+        Ensure Docker Desktop is set to use the WSL 2 Engine in settings.
+      </Step>
+      <Step title="Verify Docker Access">
+        Inside WSL: `docker ps` should return a result.
+      </Step>
+      <Step title="Continue with setup">
+        Proceed with the next steps in your WSL terminal.
+      </Step>
+    </Steps>
   </Accordion>
 </AccordionGroup>
 
-### Setting Up Local Environment 
+#### Run the Docker Container
 
-1. Create directories for models and output:
+<Steps>
+  <Step title="Create model and output directories">
+    These folders store your models and generated outputs. Docker mounts them into the container.
 
-<CodeGroup>
-```bash Linux
-mkdir -p ~/models/ComfyUI--models ~/models/ComfyUI--output  
-```
-```batch Command Line
-mkdir %USERPROFILE%\models\ComfyUI--models %USERPROFILE%\models\ComfyUI--output
-```
-```powershell PowerShell
-New-Item -ItemType Directory -Path "$env:USERPROFILE\models\ComfyUI--models", "$env:USERPROFILE\models\ComfyUI--output"
-```
-</CodeGroup>
+    <CodeGroup>
+      ```bash Linux
+      mkdir -p ~/models/ComfyUI--models ~/models/ComfyUI--output
+      ```
+      ```batch Command Line
+      mkdir %USERPROFILE%\models\ComfyUI--models %USERPROFILE%\models\ComfyUI--output
+      ```
+      ```powershell PowerShell
+      New-Item -ItemType Directory -Path "$env:USERPROFILE\models\ComfyUI--models", "$env:USERPROFILE\models\ComfyUI--output"
+      ```
+    </CodeGroup>
 
-2. Pull and run the container:
+  </Step>
+  <Step title="Pull the ComfyStream container">
+    ```bash
+    docker pull livepeer/comfystream:stable
+    ```
+    <Info>
+      If using Windows, ensure Docker Desktop is running first.
+    </Info>
+  </Step>
+  <Step title="Run the container">
+    ```bash
+    Linux/WSL docker run -it --gpus all \
+      -p 8188:8188 \
+      -p 8889:8889 \
+      -p 5678:5678 \
+      -v ~/models/ComfyUI--models:/workspace/ComfyUI/models \
+      -v ~/models/ComfyUI--output:/workspace/ComfyUI/output \
+      livepeer/comfystream:stable --download-models --build-engines --server
+    ```
+    <Note>
+      The `--download-models` flag downloads some default models.  
+      `--build-engines` optimizes the runtime for your GPU.  
+      These are only needed the first time (or when adding new models).
+    </Note>
+  </Step>
+  <Step title="Access ComfyUI">
+    Open your browser and go to [http://localhost:8188](http://localhost:8188) to start using ComfyUI with ComfyStream.
+  </Step>
+</Steps>
 
-```bash
-docker pull livepeer/comfystream:stable
-```
+### Remote GPU
 
-<Info>
-If using Windows, ensure Docker Desktop is running first
-</Info>
+If you don't have a local GPU, you can run ComfyStream on a cloud server. Choose between a managed deployment with **RunPod** or manual setup using **Ansible**.
 
-<CodeGroup>
-```bash Linux/WSL
-docker run -it --gpus all \
--p 8188:8188 \
--p 8889:8889 \
--p 5678:5678 \
--v ~/models/ComfyUI--models:/workspace/ComfyUI/models \
--v ~/models/ComfyUI--output:/workspace/ComfyUI/output \
-livepeer/comfystream:stable --download-models --build-engines --server
-```
-</CodeGroup>
+#### Run with RunPod
 
-<Note>
-The `--download-models` and `--build-engines` flags will download required models and build TensorRT engines. This process may take some time depending on your network connection and GPU hardware and is only needed on the first run or when adding new models.
-</Note>
+RunPod provides a simple one-click deployment of ComfyStream in a managed container environment — perfect for testing or avoiding manual setup.
 
-<h2 id="remote-gpu">Remote GPU</h2>
+<Steps>
+  <Step title="Launch the RunPod template">
+    Use this template to get started:
+    [livepeer-comfystream](https://runpod.io/console/deploy?template=w01m180vxx&ref=u8tlskew)
+    <Note>
+      Initial deployment to a network volume may take 20-45 minutes. For faster startup without data persistence, use the [no-volume version](https://runpod.io/console/deploy?template=j4p1g7t5vs&ref=u8tlskew).
+    </Note>
 
-### Deploy on RunPod
-
-1. Deploy using the RunPod template 
-[livepeer-comfystream](https://runpod.io/console/deploy?template=w01m180vxx&ref=u8tlskew)
-<Note>
-First-time deployment to a network volume takes approximately 20-45 minutes depending on pod performance. 
-For faster deployment without data persistence, use the RunPod template [livepeer-comfystream-novolume](https://runpod.io/console/deploy?template=j4p1g7t5vs&ref=u8tlskew)
-</Note>
-2. When using the [livepeer-comfystream](https://runpod.io/console/deploy?template=w01m180vxx&ref=u8tlskew) template, create and select a network volume to persist files.
-![New Network Volume](../../images/networkvolume.png)
-3. Select an appropriate GPU (ex: RTX 4090) and click **Deploy On-Demand**
-4. Click the **Logs** button to monitor deployment progress.
-![runpod-log](../../images/runpod-log.png)
-5. Once the container is fully running, you can access ComfyUI by clicking **Connect**
-
-
-## Accessing ComfyUI
-<AccordionGroup>
-  <Accordion title="RunPod">
-  1. Click **Connect** in pod dashboard
+  </Step>
+  <Step title="Create a network volume">
+    When using the persistent template, create and attach a network volume.
+    ![New Network Volume](../../images/networkvolume.png)
+  </Step>
+  <Step title="Choose your GPU and deploy">
+    Select a suitable GPU (e.g. RTX 4090), then click **Deploy On-Demand**.
+  </Step>
+  <Step title="Monitor deployment">
+    Use the **Logs** button to watch the container spin up.
+    ![runpod-log](../../images/runpod-log.png)
+  </Step>
+  <Step title="Access ComfyUI">
+    Once running, click **Connect** from the pod dashboard.
     ![comfyui-connect-pod](../../images/comfyui-connect-pod.png)
-  2. Access ComfyUI: **HTTP Service -> :8188**
-  3. ComfyUI will open in a new tab
-  </Accordion>
+  </Step>
+  <Step title="Open ComfyUI">
+    Click the **HTTP Service → :8188** link. It will open in a new browser tab.
+  </Step>
+</Steps>
 
-  <Accordion title="Local">
-  When running the docker image locally, you can access ComfyUI at [http://localhost:8188](http://localhost:8188).
+#### Deploy with Ansible
+
+Use [Ansible](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html) to deploy ComfyStream to your own cloud VM (like AWS, GCP, Azure, or TensorDock). Great if you want more control or a repeatable, fully automated setup.
+
+<Steps>
+  <Step title="Create a cloud VM">
+    Provision a VM with at least:
+    - **GPU**: 20GB VRAM  
+    - **RAM**: 16GB  
+    - **CPU**: 4 vCPUs  
+    - **Disk**: 100GB  
+  </Step>
+  <Step title="Open required ports">
+    Allow incoming traffic on:
+    - **22** (SSH)  
+    - **8189** (ComfyStream HTTPS)  
+  </Step>
+  <Step title="Install Ansible">
+    Install Ansible on your **local machine** (not the VM). See the [official installation guide](https://docs.ansible.com/ansible/latest/installation_guide/index.html).
+  </Step>
+  <Step title="Clone the ComfyStream playbook">
+    ```bash
+    git clone https://github.com/livepeer/comfystream.git
+    cd comfystream/scripts/ansible
+    ```
+    <Info>
+      No need to install anything on the VM — Ansible sets it all up over SSH.
+    </Info>
+  </Step>
+  <Step title="Add your VM IP to the inventory">
+    Open `inventory.yml` and add your VM's public IP address.
+  </Step>
+  <Step title="Set a custom password (optional)">
+    Edit the `comfyui_password` value in `plays/setup_comfystream.yaml`.
+    <Note>
+      This sets the password used to access ComfyUI in your browser.
+    </Note>
+  </Step>
+  <Step title="Run the playbook">
+    ```bash
+    ansible-playbook -i inventory.yaml plays/setup_comfystream.yaml
+    ```
+    <Info>
+      If you're not using a root user, add `--ask-become-pass` to enter your sudo password.
+    </Info>
+    <Note>
+      The playbook pulls a ~20GB Docker image on the VM. This may take a while on first run.
+    </Note>
+  </Step>
+  <Step title="Monitor download progress (optional)">
+    If needed, SSH into the VM and run:
+    ```bash
+    docker pull livepeer/comfystream:latest
+    ```
+    <Info>
+      Helpful if you're unsure whether the download is progressing during first-time setup.
+    </Info>
+  </Step>
+  <Step title="Open ComfyUI">
+    Visit `https://<VM_IP>:8189` in your browser.  
+    <Note>
+      Port **8189** is used instead of 8188 due to reverse proxy routing.
+    </Note>
+  </Step>
+</Steps>
+
+---
+
+## Accessing ComfyStream
+
+1. Click the **ComfyStream** menu button in ComfyUI:
+
+   <Frame>
+     ![ComfyStream Menu Button](../../images/comfystream-node-ui.png)
+   </Frame>
+
+2. Open **Server Settings** to verify that ComfyStream is configured to bind to the correct interface and port.
+
+   <Note>For remote environments like RunPod, set the Host to `0.0.0.0`.</Note>
+   <Frame>
+     ![Server Settings](../../images/comfystream-server-settings.png)
+   </Frame>
+
+3. Click **Save** to apply the settings.
+
+4. Open the **ComfyStream** menu again and click **Start ComfyStream Server**. Wait for the server status indicator to turn green.
+
+   <Note>
+     You can monitor ComfyStream server logs in the ComfyUI log terminal tab.
+   </Note>
+
+5. Click **Open ComfyStream UI** to launch it in a new tab. Alternatively, double-click the node graph and search for **ComfyStream UI Preview**.
+   <Frame>
+     ![ComfyStream UI Preview](../../images/comfystream-ui-embed.png)
+   </Frame>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Docker Hub Rate Limits (toomanyrequests error)">
+  
+    <Note>
+      If you encounter a `toomanyrequests` error while pulling the Docker image, either
+      wait a few minutes or provide your Docker credentials when running the playbook:
+
+      ```bash
+      ansible-playbook -i inventory.yaml plays/setup_comfystream.yaml -e "docker_hub_username=your_dockerhub_username docker_hub_password=your_dockerhub_pat"
+      ```
+    </Note>
+
   </Accordion>
 </AccordionGroup>
-
-## Accessing ComfyStream 
-1. From ComfyUI, click the **ComfyStream** menu button:
-![comfystream-node-ui.png](../../images/comfystream-node-ui.png)
-
-2. Click **Server Settings** to verify ComfyStream is configured to bind to the correct interface and port <Note>When deploying to remote environments like RunPod, you will need to set the Host to `0.0.0.0`. </Note>
-![comfystream-server-settings.png](../../images/comfystream-server-settings.png)
-3. Click **Save**.
-4. Open the **ComfyStream** menu again, then click **Start ComfyStream Server**. Wait for the server status indicator to turn green. 
-<Note>
-You can also monitor ComfyStream server logs in ComfyUI's log terminal tab.
-</Note>
-5. Click **Open ComfyStream UI** to launch in a new tab.
-Alternatively, you can double-click the node graph and search for **ComfyStream UI Preview**
-![comfystream-ui-embed.png](../../images/comfystream-ui-embed.png)

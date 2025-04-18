@@ -1,0 +1,101 @@
+---
+title: Stream using OBS
+description: "Stream your realtime AI workflows using OBS and browser source from ComfyStream UI."
+icon: "video"
+---
+
+After setting up ComfyStream and running your first workflow, you can use OBS Studio to capture and broadcast your AI-enhanced streams to your favourite platforms — whether it's YouTube, Twitch, or distributed infrastructure providers like Livepeer.
+
+## Prerequisites
+
+<AccordionGroup>
+  <Accordion title="Install OBS Studio">
+    Download and install [OBS Studio](https://obsproject.com/) for your
+    operating system. OBS (Open Broadcaster Software) is a free and open-source
+    software for video recording and live streaming.
+  </Accordion>
+
+  <Accordion title="Run ComfyStream Workflow">
+    Before streaming with OBS, you need to have a running ComfyStream workflow.
+    If you haven't done this yet, follow the [run your first
+    workflow](/technical/get-started/quickstart#running-your-first-workflow)
+    guide first.
+  </Accordion>
+</AccordionGroup>
+
+## Setting Up OBS with ComfyStream
+
+<Steps>
+  <Step title="Access the full-screen stream">
+    Click the  <Icon icon="up-right-from-square" iconType="solid" />  icon in the bottom right corner of the ComfyStream video output to open the stream in a new fullscreen browser tab.
+    <Accordion title="reference image">
+    <Frame caption="Once your stream is live, you'll see a small icon in the bottom right corner of the video output window.">
+      <img src="../../images/OBS-capture.png" />
+    </Frame>
+    </Accordion>
+    
+    <Note>
+    This dedicated view provides a clean video source without any UI elements, perfect for capturing in OBS.
+    </Note>
+  </Step>
+  
+  <Step title="Copy the stream URL">
+    Copy the URL from the new browser tab. You'll need this to add the stream as a source in OBS.
+  </Step>
+  
+  <Step title="Add browser source in OBS">
+    1. Open **OBS Studio**.  
+    2. In the **Sources** panel, click the **+** button.  
+    3. Select **Browser** from the list of source types.  
+    4. Name your source (e.g., "ComfyStream Output") and click **OK**.  
+    5. Paste the URL you copied from the ComfyStream fullscreen tab into the **URL** field.  
+    6. Set the **Width** and **Height** fields to **1024** to match the resolution of the ComfyStream video.  
+    7. Click **OK** to confirm and add the browser source.
+
+    <Info>
+    You may need to adjust other browser source settings depending on your specific requirements and system performance.
+    </Info>
+
+  </Step>
+  
+  <Step title="Position and scale the source">
+    Once added, you can resize and position the ComfyStream browser source within your OBS scene as needed.
+    
+    You can also add additional sources like webcams, images, or text overlays to enhance your stream.
+  </Step>
+</Steps>
+
+## Streaming to Platforms
+
+<AccordionGroup>
+  <Accordion title="Major Streaming Platforms">
+    Use the same OBS setup to stream to platforms like:
+    - YouTube Live
+    - Twitch
+    - Facebook Live 
+    - Custom RTMP servers.
+
+    Each platform provides a unique **stream key** and **RTMP URL**. Configure these in **OBS Settings →
+    Stream** to start broadcasting.
+
+  </Accordion>
+  <Accordion title="Stream to Livepeer">
+    Livepeer is a distributed video streaming network offering cost-effective
+    streaming infrastructure. Follow the [Livepeer
+    Documentation](https://docs.livepeer.org/developers/guides/stream-via-obs)
+    for detailed instructions on how to:
+    1. Create a stream on **Livepeer
+    Studio**. 
+    2. Configure OBS with your Livepeer **Stream Key** and **RTMP
+    ingest** URL. 
+    3. Start broadcasting your **ComfyStream AI-enhanced video**.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<Note>
+  If you experience performance issues, try reducing the resolution or frame
+  rate in both ComfyStream and OBS settings. Browser sources can be
+  resource-intensive, especially with AI-generated content.
+</Note>

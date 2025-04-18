@@ -1,0 +1,79 @@
+---
+title: Run First Workflow
+description: "Run your first real-time AI workflow with ComfyStream and see it live in Comfystream UI."
+icon: "play"
+---
+
+After you have successfully installed ComfyStream by following the [installation guide](install), you can run your first AI workflow.
+
+## Prerequisites
+
+Download [example workflows](https://github.com/livepeer/comfystream/tree/main/workflows/comfystream) from the ComfyStream GitHub repository to test your setup.
+
+## Accessing ComfyStream UI
+
+<AccordionGroup>
+  <Accordion title="ComfyStream UI Preview Window">
+    When you click the ComfyStream node and select **ComfyStream UI Preview** in ComfyUI, it will open a window that looks similar to the image below:
+    <Frame>
+      ![comfystream-ui-dialog-box.png](../../images/comfystream-ui-dialog-box.png)
+    </Frame>
+  </Accordion>
+
+  <Accordion title="Standalone Browser Tab">
+    If you prefer to run workflows in a new tab rather than inside ComfyUI, click **Open ComfyStream UI** from the [ComfyStream Menu](install#accessing-comfystream).
+    This will open a similar dialog box in a new browser tab.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Opening the UI will ask for permission to access your video and audio so it
+  can stream your webcam and microphone. You need to provide access to use
+  ComfyStream.
+</Note>
+
+## Running Your First Workflow
+
+<Steps>
+  <Step title="Select your workflow">
+    In the ComfyStream UI, click **Choose files** and select one of the
+    previously downloaded workflows.
+  </Step>
+  <Step title="Start ComfyStream">
+    Click **Start Stream** to start the workflow. Once the stream starts, you
+    will see **Starting Stream..** at the bottom of the page. Depending on the
+    workflow complexity, it may take some time to start. Please wait patiently.
+  </Step>
+  <Step title="Enjoy your stream">
+    Once the stream starts, you will see the AI effects being applied in
+    real-time.
+  </Step>
+</Steps>
+
+<Accordion title="Example Workflow Preview">
+  <Frame caption="In this example preview, comfystream UI is accessed from inside comfyUI and the workflow is selected from local storage.">
+    <img src="../../images/output.gif" />
+  </Frame>
+  <Tip>
+    To see the similar preview, copy the
+    [example-workflow.json](https://github.com/livepeer/comfystream/raw/main/workflows/comfystream/sd15-multi-cnet-depthanything-face-api.json)
+    to local storage and launch it from comfystream UI as shown above.
+  </Tip>
+</Accordion>
+
+## Troubleshooting
+
+<Note>
+  For advanced users, you can check the logs in the ComfyStream server to see if
+  everything is loading properly without any major errors.
+</Note>
+
+<Accordion title="Reference Image - Server Logs">
+  <Frame caption="ComfyStream Server Logs.">
+    <img src="../../images/comfystream-logs-image.png" />
+  </Frame>
+  <Info>
+    The ComfyStream server logs are in the ComfyUI log window. Open the bottom panel using the **Toggle Bottom Panel** button at the top-right of the interface.
+  </Info>
+
+</Accordion>
