@@ -30,6 +30,21 @@
             ]
           },
           {
+            "group": "Custom Nodes",
+            "pages": [
+              "technical/custom-nodes/comfystream-nodes",
+              {
+                "group": "Stream Pack",
+                "icon": "box",
+                "pages": [
+                  "technical/custom-nodes/stream-pack/overview",
+                  "technical/custom-nodes/stream-pack/feature-bank"
+                ]
+              },
+              "technical/custom-nodes/third-party-nodes"
+            ]
+          },
+          {
             "group": "References",
             "pages": [
               "technical/references/changelog",
