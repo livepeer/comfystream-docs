@@ -1,0 +1,50 @@
+---
+title: "ComfyStream Nodes"
+description: "Explore the native nodes provided by ComfyStream for real-time workflows."
+icon: "play"
+---
+
+The ComfyStream package provides native nodes essential for real-time AI workflows in ComfyUI, handling tasks like converting audio and images into tensors, processing data, and converting tensors back into usable formats. Additionally, the **ComfyStream Toolkit** includes a **StreamPack**, which extends functionality with advanced custom nodes for video, audio, and data workflows. Learn more in the [StreamPack Overview](/technical/custom-nodes/stream-pack/overview) page.
+
+## Input Nodes
+
+ComfyStream provides input nodes to convert media inputs into tensors, enabling AI processing in real-time workflows.
+
+<AccordionGroup>
+  <Accordion title="LoadAudioTensor">
+    Converts audio inputs into tensors, enabling real-time audio processing in ComfyStream workflows.
+  </Accordion>
+  <Accordion title="LoadTensor">
+    Converts image inputs into tensor format for computation in real-time AI workflows.
+  </Accordion>
+  <Accordion title="PrimaryInputLoadImage">
+    A passthrough node that specifies a reference image for real-time AI workflows, such as LivePortrait.
+  </Accordion>
+</AccordionGroup>
+
+## Output Nodes
+
+ComfyStream provides output nodes to convert tensors back into media formats for real-time streaming.
+
+<AccordionGroup>
+  <Accordion title="SaveAudioTensor">
+    Converts audio tensors into audio frames.
+  </Accordion>
+  <Accordion title="SaveTensor">
+    Converts image tensors into image frames.
+  </Accordion>
+</AccordionGroup>
+
+## Task-Specific Nodes
+
+Most task-specific nodes are part of the StreamPack, but the ComfyStream package includes a few for example purposes.
+
+<AccordionGroup>
+  <Accordion title="PitchShifter">
+    Shifts the pitch of an input audio stream, demonstrating audio
+    transformations in real-time workflows.
+    <Tip>
+      Check out the [Example Workflow](https://github.com/livepeer/comfystream/blob/main/workflows/comfystream/audio-tensor-utils-example-api.json) to see the `PitchShifter` in action.
+    </Tip>
+  </Accordion>
+</AccordionGroup>
