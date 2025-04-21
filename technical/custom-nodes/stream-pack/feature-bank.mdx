@@ -1,121 +1,168 @@
 ---
-title: "Feature Bank Node"
-description: "Improve temporal consistency using feature banks."
+title: "Feature Bank"
+description: "Improve temporal consistency of real-time using feature banks."
 ---
 
-## 🎬 Introduction
+<Note>
+  This node is implemented based on the research paper ["Looking Backward:
+  Streaming Video-to-Video Translation with Feature
+  Banks"](https://arxiv.org/pdf/2405.15757). See the
+  [Acknowledgments](#acknowledgments) section for details.
+</Note>
 
-The Feature Bank is a novel component designed to enhance temporal consistency and provide stylistic control in generative video models, 
-particularly in real-time applications. Inspired by the research paper “LOOKING BACKWARD: STREAMING VIDEO-TO-VIDEOTRANSLATION WITH FEATURE BANKS” ([🔗](https://arxiv.org/pdf/2405.15757) ), 
-our ComfyUI node implements this concept by storing and reusing key information from previous frames during video generation. 
-This approach reduces flickering and maintains a more coherent visual flow across the generated video. 🎞️
+## Introduction
 
-## 🖼️ Showcase
+The **Feature Bank** node improves **temporal consistency**—the visual coherence between consecutive frames—in generative video models by **caching and reusing features** from earlier frames. This reduces flickering and enables smoother transitions, resulting in a more stable visual flow. By controlling how much these cached features influence each frame, it also enables fine-grained **stylistic consistency**—especially valuable in **real-time contexts** where visual stability is essential.
 
-To illustrate the improvements offered by the Feature Bank, a side-by-side comparison with a regular workflow (without the Feature Bank) would typically highlight the following:
+## Visual Comparison
 
-📉 Reduced Flickering: Noticeably less jitter and instability, especially in background elements and consistent objects across frames.
+The video below compares a [baseline workflow](https://github.com/livepeer/ComfyUI-Stream-Pack/blob/main/examples/workflows/sd15-tensorrt-api.json) with a [real-time workflow using Feature Bank](https://github.com/livepeer/ComfyUI-Stream-Pack/blob/main/examples/workflows/sd15-tensorrt-feature-bank-api.json). Compared to the baseline, the Feature Bank provides:
 
-🔁 Improved Temporal Consistency: Objects and textures maintain a more stable appearance from frame to frame, preventing jarring changes or distortions.
+- **Reduced Flickering** – Backgrounds and recurring objects appear more stable.
+- **Improved Temporal Consistency** – Objects retain consistent form, texture, and color across frames.
+- **Smoother Motion** – Transitions feel more natural, with fewer visual jumps or jitters.
 
-🎥 Smoother Motion: Overall visual flow appears more fluid and less prone to abrupt transitions.
+<Frame caption="Side-by-side comparison (T2I workflow)">
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/LhjW8TJjPpU?si=0zlwZzWyf1fsG0Xo"
+    title="Feature Bank Comparison Video"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  />
+</Frame>
 
-🖼️
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/LhjW8TJjPpU?si=0zlwZzWyf1fsG0Xo"
-  title="Livepeer video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen
-/>
+## How It Works
 
+The Feature Bank node enhances temporal consistency by integrating with the [self-attention layers](https://huggingface.co/docs/transformers/en/attention) of the diffusion model. It caches features from previous frames and re-injects them into future ones—stabilizing transitions without altering the underlying model.
 
-## 🛠️ Usage
+It performs three core steps:
 
-**🔗 Workflow Integration**
+1. **Caching** – Stores attention features at regular intervals.
+2. **Filtering** – Selects relevant cached features using cosine similarity.
+3. **Injection** – Blends selected features into the current frame based on the configured strength.
 
-The Feature Bank is implemented as a custom ComfyUI node and can be seamlessly integrated into your existing workflows.
+The node supports any self-attention-based model (e.g., Stable Diffusion) and works with both **text-to-image (T2I)** and **image-to-image (I2I)** workflows.
 
-🧩 ![Feature Bank Node Integration](https://huggingface.co/datasets/ruffy369/sample-images-videos/resolve/main/feature_bank_node.png)
+## Adding the Node
 
-In a typical generation pipeline, the Feature Bank node should be placed after the self-attention operations within the diffusion model, 
-and before any subsequent processing steps. It requires connections to the key, value, and output tensors from the attention layers. What it basically means is
-that you can use it in any node that has a self-attention layer, such as the Stable Diffusion model.
-The Feature Bank node will automatically handle the storage and retrieval of features, ensuring that the most relevant information is used to maintain temporal consistency.
+<Note>
+  An example T2I workflow using the Feature Bank node is available
+  [here](https://github.com/livepeer/ComfyUI-Stream-Pack/blob/main/examples/workflows/sd15-tensorrt-feature-bank-api.json).
+</Note>
 
-**➕ Adding to Other Workflows**
+<Steps>
+  <Step title="Install the StreamPack nodes">
+    Ensure the [StreamPack](https://github.com/livepeer/ComfyUI-Stream-Pack)
+    custom nodes are installed in your ComfyUI setup. Follow the [installation
+    instructions](/technical/custom-nodes/stream-pack/overview#installation) for
+    a step-by-step guide.
+  </Step>
+  <Step title="Open the ComfyUI graph editor">
+    Right-click on an empty area of the canvas and choose **Add Node**.
+  </Step>
+  <Step title="Find the Feature Bank node">
+    Search for `Feature Bank` under the `StreamPack/model_patches/unet`
+    category.
+  </Step>
+  <Step title="Place it in the workflow">
+    Insert the node between your **Model Loader** and **Sampling Node**.
+  </Step>
+  <Step title="Connect inputs and configure parameters">
+    Wire up the inputs and outputs. The node runs automatically using the
+    parameters you set.
+  </Step>
+</Steps>
 
-To add the Feature Bank node to your ComfyUI workflows:
+<Frame caption="Feature Bank Node Integration (T2I workflow)">
+  <img
+    src="/images/stream-pack/feature-bank/feature-bank-workflow.png"
+    alt="Feature Bank Node Integration"
+  />
+</Frame>
 
-✅ Ensure the Feature Bank custom node is installed. This may require installing a specific custom node repository in ComfyUI.
+## Parameters
 
-🖱️ In the ComfyUI interface, right-click on an empty area of the graph.
+The Feature Bank node includes the following configurable parameters:
 
-➕ Select “Add Node.”
+<ParamField path="feature_cache_interval" type="integer">
+  **Feature Cache Interval**: Determines how often features from the attention
+  layers are cached (e.g., every 4 frames). Lower values improve consistency but
+  increase memory usage.
+</ParamField>
 
-🔍 Locate the Feature Bank node—it may be under a custom category or the name of the repository like `StreamPack/model_patches/unet`.
+<ParamField path="use_feature_injection" type="boolean">
+  **Use Feature Injection**: Enables or disables the influence of cached
+  features. Set to `true` to activate the Feature Bank.
+</ParamField>
 
-🧱 Click on the Feature Bank node to add it to your workflow.
+<ParamField path="feature_injection_strength" type="float">
+  **Feature Injection Strength**: Controls how much influence cached features
+  have on the current frame (0 = none, 1 = full). A blended approach is possible
+  with values between 0 and 1.
+</ParamField>
 
-🔗 Connect the required inputs and outputs. Typically, you'll need to you need to just put it between model checkpoint loader
-node and the sampling node.
+<ParamField path="feature_similarity_threshold" type="float">
+  **Feature Similarity Threshold**: Sets the minimum cosine similarity for
+  reusing cached features. Higher values ensure only relevant features are
+  reused.
+</ParamField>
 
-**📂 Example Workflow Files**
+<ParamField path="feature_bank_max_frames" type="integer">
+  **Feature Bank Max Frames**: Maximum number of past frames to cache. Older
+  frames are automatically discarded.
+</ParamField>
 
-We will provide example workflow files that showcase both basic integration and advanced usage scenarios. Please refer to these for practical implementation guidance.
+<Accordion title="Tips for Tuning and Best Practices">
 
-📂 Here is an example [workflow](https://github.com/RUFFY-369/ComfyUI-FeatureBank/blob/main/examples/SD%201.5%20MultiControlNet%20DepthAnything%20FeatureBank.json) that demonstrates the integration of the Feature Bank node in a workflow.
+- **Start with a moderate cache interval.** Lower values improve consistency but increase memory usage.
+- **Set injection strength gradually.** Start around 0.5 to balance coherence and novelty.
+- **Match similarity threshold to your content.** Higher values are best for static backgrounds or subjects.
+- **Use fewer cached frames for fast-changing scenes,** and more for looping or stable content.
+- **Monitor memory use,** especially with low cache intervals or high resolutions.
+- **Experiment creatively.** Small tweaks to injection or similarity can unlock unique visual styles.
 
-**⚙️ Parameter Descriptions**
+</Accordion>
 
-The Feature Bank node includes the following key parameters:
+## Strengths and Limitations
 
-📊 Feature Cache Interval: An integer that determines how frequently the Feature Bank caches features from the attention layers. For example, a value of 4 stores features every 4 frames (frames 0, 4, 8, etc.). This parameter controls the temporal granularity of the feature bank. Lower values result in more frequent caching, potentially improving consistency but increasing memory usage.
+While the Feature Bank offers major stability and stylistic benefits, it also introduces a few trade-offs depending on your use case.
 
-🔁 Use Feature Injection: A boolean (True/False) value that enables or disables the injection of cached features back into the attention mechanism. Setting it to True activates the Feature Bank’s influence on current frame generation.
+### Strengths
 
-🎚️ Feature Injection Strength: A float (typically between 0 and 1) that controls how strongly the injected cached features influence the current generation.
-0️⃣ 0: No injection; the Feature Bank is effectively disabled.
-💯 1: Full injection; cached features heavily guide the current frame.
-🔄 Values between 0 and 1 allow a blended approach, subtly incorporating past-frame data.
+- **Improved Temporal Consistency** – Reduces flickering and stabilizes frame-to-frame transitions.
+- **Stylistic Control** – Adjust the influence of past frames for consistent or evolving styles.
+- **Creative Exploration** – Enables novel stylistic variations by selectively injecting past features.
 
-🔍 Feature Similarity Threshold: Sets the minimum cosine similarity between the current frame and cached features for feature injection to occur.
-Only features above this threshold are reused, helping maintain consistency 🎯 across similar regions in frames.
+### Limitations
 
-🧠💾 Feature Bank Max Frames: Defines the max number of past frames to cache attention features from. Older features are discarded as new ones are added,
-keeping memory use efficient 📉.
+- **Reduced Novelty** – High injection strength may overly rely on past frames, limiting new details.
+- **Memory Usage** – Storing features increases memory consumption, especially at high resolution.
+- **Parameter Tuning** – May require iteration to balance consistency and variation effectively.
 
-## 📈 Strengths and Limitations
+## Acknowledgments
 
-**✅ Strengths**
+This node is based on the research paper ["Looking Backward: Streaming Video-to-Video Translation with Feature Banks"](https://arxiv.org/pdf/2405.15757) by **Liang et al. 2023**. We thank the original authors for their contributions and collaboration in adapting this concept for **ComfyUI**.
 
-🧠 Improved Frame-to-Frame Consistency: By reusing attention patterns from previous frames, the Feature Bank significantly reduces flickering and helps
-maintain visual coherence.
+<Accordion title="How to Cite">
+If you use the Feature Bank node in your research or refer to the paper’s results, please cite the following:
 
-🎨 Style Control: Users can influence how closely each frame follows the style and content of earlier frames by adjusting the Feature Injection Strength.
-This allows either stylistic consistency or smooth stylistic evolution.
+```bibtex
+@article{liang2024looking,
+  title={Looking Backward: Streaming Video-to-Video Translation with Feature Banks},
+  author={Liang, Feng and Kodaira, Akio and Xu, Chenfeng and Tomizuka, Masayoshi and Keutzer, Kurt and Marculescu, Diana},
+  journal={arXiv preprint arXiv:2405.15757},
+  year={2024}
+}
 
-🧪 Creative Exploration: Selectively injecting past features can lead to novel stylistic variations or evolving visual themes, opening creative possibilities.
+@article{kodaira2023streamdiffusion,
+  title={StreamDiffusion: A Pipeline-level Solution for Real-time Interactive Generation},
+  author={Kodaira, Akio and Xu, Chenfeng and Hazama, Toshiki and Yoshimoto, Takanori and Ohno, Kohei and Mitsuhori, Shogo and Sugano, Soichi and Cho, Hanying and Liu, Zhijian and Keutzer, Kurt},
+  journal={arXiv preprint arXiv:2312.12491},
+  year={2023}
+}
+```
 
-**⚠️ Limitations**
-
-⚠️ Potential for Reduced Novelty: High Feature Injection Strength may cause the video to become overly reliant on past frames, limiting the introduction of
-new details or changes.
-
-⚙️ Parameter Tuning Required: Finding the right balance between consistency and novelty may require experimentation with the Interval and Feature Injection
-Strength parameters. Optimal settings vary depending on content and desired outcome.
-
-🧵 Increased Memory Usage: Storing features from previous frames naturally increases memory consumption. The impact depends on video resolution, tensor size,
-and the Interval setting.
-
-## 💡 Tips and Best Practices
-
-📈 Experiment with the Interval: Start with a moderate value (e.g., 4) and adjust based on how dynamic your scene is. Rapid changes may benefit from a lower interval, while static scenes can use higher values.
-
-🎛️ Fine-tune Feature Injection Strength: This is key to balancing consistency and novelty. Start with a value around 0.5, then adjust as needed. Lower values allow more variation; higher values increase consistency.
-
-🧮 Monitor Memory Usage: Be mindful of memory impact, especially when using lower intervals or generating high-resolution videos.
-
-🧍‍♂️ Consider the Content: Effectiveness varies by content. The Feature Bank is particularly effective at maintaining consistency for characters, objects, and background elements.
+</Accordion>

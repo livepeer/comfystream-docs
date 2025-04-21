@@ -12,6 +12,45 @@ The ComfyUI-Stream-Pack provides a [custom node pack](https://github.com/livepee
   [Third-Party Nodes](/technical/custom-nodes/third-party-nodes) page.
 </Tip>
 
+## Installation
+
+<Note>
+  We are actively working on publishing the StreamPack as a ComfyUI registry
+  node. Once available, you will be able to install it directly via the ComfyUI
+  Manager for a more streamlined setup process.
+</Note>
+
+To use the StreamPack nodes, you need to install the StreamPack repository in your ComfyUI setup.
+
+{/* <!-- prettier-ignore-start --> */}
+
+<Steps>
+  <Step title="Navigate to the custom_nodes directory">
+    Open a terminal and navigate to the `custom_nodes` directory in your ComfyUI workspace:
+    ```bash
+    cd /workspace/ComfyUI/custom_nodes
+    ```
+  </Step>
+  <Step title="Clone the StreamPack repository">
+    Clone the StreamPack repository from GitHub:
+    ```bash
+    git clone https://github.com/livepeer/ComfyUI-Stream-Pack.git
+    cd ComfyUI-Stream-Pack
+    ```
+  </Step>
+  <Step title="Install dependencies">
+    Activate your ComfyUI environment and install the required dependencies:
+    ```bash
+    conda activate comfyui
+    pip install -r requirements.txt
+    ```
+  </Step>
+  <Step title="Restart ComfyUI">
+    Restart your ComfyUI server to load the new nodes.
+  </Step>
+</Steps>
+{/* <!-- prettier-ignore-end --> */}
+
 ## StreamPack Nodes Overview
 
 StreamPack includes a variety of custom nodes grouped into four main categories: **Video Quality Nodes**, which enhance video output; **Performance Nodes**, which optimize real-time workflows; **Benchmarking and Profiling Tools**, which help analyze and refine workflow efficiency; and **Task-Specific Nodes**, which provide specialized functionality for real-time video workflows.
