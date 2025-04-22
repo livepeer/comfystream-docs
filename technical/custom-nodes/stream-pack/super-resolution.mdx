@@ -1,0 +1,113 @@
+---
+title: "Super Resolution"
+description: "Upscale video frames in real-time using GPU acceleration."
+---
+
+<Note>
+  This node is based on the work by **ryanontheinside** in his GitHub repository [ComfyUI_SuperResolution](https://github.com/ryanontheinside/ComfyUI_SuperResolution).
+</Note>
+
+## Introduction
+
+The **Super Resolution** node **upscales** video frames using pre-trained models. Since upscaling is performed on the GPU with **OpenCV** compiled for CUDA, the process is extremely fast, making it suitable for real-time applications. This node is particularly impactful when used with **Stable Diffusion** AI generation, which performs best with **512x512** resolution images. Using higher resolutions can reduce efficiency and cause a drop in FPS for real-time workflows.
+
+## Setup Method
+
+### Docker Image with Precompiled OpenCV
+The node is designed for high-speed upscaling, requiring a version of OpenCV with CUDA support. When you run ComfyStream using the **[Docker setup](/technical/get-started/install#install-with-docker)**, the Docker image includes a precompiled package hosted at [ComfyUI-Stream-Pack/releases](https://github.com/JJassonn69/ComfyUI-Stream-Pack/releases/tag/v1.0), so you don't need to compile it yourself.
+
+## Adding the Node
+
+<Note>
+  An example upscaling workflow using the Super Resolution node is available
+  [here]().
+</Note>
+
+<Steps>
+  <Step title="Install the StreamPack Nodes">
+    Ensure the [StreamPack](https://github.com/livepeer/ComfyUI-Stream-Pack) custom nodes are installed in your ComfyUI setup. Follow the [installation instructions](/technical/custom-nodes/stream-pack/overview#installation) for a step-by-step guide.
+  </Step>
+  <Step title="Open the ComfyUI Graph Editor">
+    Right-click on an empty area of the canvas and choose **Add Node**.
+  </Step>
+  <Step title="Find the Super Resolution Node">
+    Search for `SuperResolution` under the `StreamPack/` category.
+  </Step>
+  <Step title="Place it in the Workflow">
+    There are two nodes under SuperResolution: `SR Model Loader` and `SR Upscale`. You need both to upscale, so place them on the canvas.
+  </Step>
+  <Step title="Connect Inputs and Configure Parameters">
+    - In `SR Model Loader`, you'll see widgets to select the upscaling model and scale factor.
+    - Connect the output of `SR Model Loader` to the input of `SR Upscale`.
+    - In the `SR Upscale` node, toggle the `use CUDA` widget to `true` to enable CUDA acceleration.
+    - Connect an image to the input of `SR Upscale` and a preview node to the output.
+  </Step>
+</Steps>
+
+<Frame caption="Minimal Super Resolution Node Implementation">
+  <img
+    src="/images/stream-pack/super-resolution/super-resolution-node-image.png"
+    alt="Super Resolution Node Integration"
+  />
+</Frame>
+
+## Parameters
+
+The Super Resolution node includes the following configurable parameters:
+
+### SR Model Loader Node
+
+<ParamField path="model_type" type="string">
+  **Model Type**: Select the upscaling model to use. The quality and performance vary by model. Models are downloaded and loaded automatically when selected in the canvas. Below is a basic comparison of the models.
+</ParamField>
+
+| Model | Architecture | Features | Best For | Speed | Quality |
+|-------|--------------|----------|----------|-------|---------|
+| **FSRCNN-small** | Lightweight CNN | Fast, minimal memory use | Real-time processing, mobile | ★★★★★ | ★★ |
+| **FSRCNN** | CNN with larger features | Good balance of speed/quality | General purpose | ★★★★ | ★★★ |
+| **ESPCN** | Sub-pixel convolutions | Efficient upscaling at end | Text/line drawings | ★★★★ | ★★★ |
+| **VDSR** | Very deep CNN | Better edge reconstruction | Detailed images with edges | ★★★ | ★★★★ |
+| **LapSRN** | Laplacian pyramid | Progressive upscaling | Sharp edges, details | ★★★ | ★★★★ |
+| **EDSR** | Deep residual network | Most parameters, best quality | Maximum detail | ★★ | ★★★★★ |
+
+<ParamField path="scale_factor" type="integer">
+  **Scale Factor**: Select the upscaling factor. The image will be upscaled by this factor. For example, if the input image is `512x512`, the output will be `1024x1024` with a scale factor of `2`.
+</ParamField>
+
+### SR Upscale Node
+
+<ParamField path="use_CUDA" type="boolean">
+  **Use CUDA**: Toggle to `true` to enable CUDA acceleration for upscaling.
+</ParamField>
+
+<Accordion title="Tips for Tuning and Best Practices">
+
+- **Select the Model for Upscaling**: Choose the model based on desired upscaling quality and performance; refer to the comparison table above.
+- **Scaling Factor Selection**: Consider the required output resolution when choosing the scale factor. A higher scaling factor increases processing time, potentially reducing real-time performance.
+- **Using CUDA Acceleration**: While CPU can be used for upscaling, it is significantly slower. Use CUDA acceleration for optimal performance.
+
+</Accordion>
+
+## Strengths and Limitations
+
+While the Super Resolution node offers significant performance benefits compared to other upscaling methods, it also introduces a few trade-offs depending on your use case.
+
+### Strengths
+
+- **Adjustability** – According to the need, you can choose better quality upscaling models or lower quality but faster upscaling models. Similar with scaling factor, you can choose the one that best fits your needs.
+
+### Limitations
+
+- **Setup Complexity** – The node requires a version of OpenCV with CUDA support, which may require additional setup, since the CUDA is only available for NVIDIA GPUs, it will not work on other GPUs.
+
+## Acknowledgments
+
+<Accordion title="Credits">
+
+This nodepack implements models originally created by:
+
+- FSRCNN: Dong et al. (https://github.com/ryanontheinside/FSRCNN_Tensorflow)
+- EDSR: Lim et al. (https://github.com/ryanontheinside/EDSR_Tensorflow)
+- ESPCN: Shi et al. (https://github.com/ryanontheinside/TF-ESPCN)
+- LapSRN: Lai et al. (https://github.com/ryanontheinside/TF-LapSRN)
+</Accordion>
