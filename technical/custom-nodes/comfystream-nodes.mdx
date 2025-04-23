@@ -4,6 +4,14 @@ description: "Explore the native nodes provided by ComfyStream for real-time wor
 icon: "play"
 ---
 
+<Note>
+  These native nodes are pre-installed with ComfyStream when you install the
+  package. You do not need to install them manually. See the [ComfyStream
+  Installation Guide](/technical/get-started/install) for details.
+</Note>
+
+import { GitHubFooter } from "/snippets/github-footer.mdx";
+
 The ComfyStream package provides native nodes essential for real-time AI workflows in ComfyUI, handling tasks like converting audio and images into tensors, processing data, and converting tensors back into usable formats. Additionally, the **ComfyStream Toolkit** includes a **StreamPack**, which extends functionality with advanced custom nodes for video, audio, and data workflows. Learn more in the [StreamPack Overview](/technical/custom-nodes/stream-pack/overview) page.
 
 ## Input Nodes
@@ -13,12 +21,20 @@ ComfyStream provides input nodes to convert media inputs into tensors, enabling 
 <AccordionGroup>
   <Accordion title="LoadAudioTensor">
     Converts audio inputs into tensors, enabling real-time audio processing in ComfyStream workflows.
+    
+    <GitHubFooter url="https://github.com/livepeer/comfystream/blob/main/nodes/audio_utils/load_audio_tensor.py"/>
   </Accordion>
   <Accordion title="LoadTensor">
     Converts image inputs into tensor format for computation in real-time AI workflows.
+
+    <GitHubFooter url="https://github.com/livepeer/comfystream/blob/main/nodes/tensor_utils/load_tensor.py"/>
+
   </Accordion>
   <Accordion title="PrimaryInputLoadImage">
     A passthrough node that specifies a reference image for real-time AI workflows, such as LivePortrait.
+
+    <GitHubFooter url="https://github.com/livepeer/comfystream/blob/main/nodes/video_stream_utils/primary_input_load_image.py"/>
+
   </Accordion>
 </AccordionGroup>
 
@@ -29,9 +45,15 @@ ComfyStream provides output nodes to convert tensors back into media formats for
 <AccordionGroup>
   <Accordion title="SaveAudioTensor">
     Converts audio tensors into audio frames.
+
+    <GitHubFooter url="https://github.com/livepeer/comfystream/blob/main/nodes/audio_utils/save_audio_tensor.py"/>
+
   </Accordion>
   <Accordion title="SaveTensor">
     Converts image tensors into image frames.
+
+    <GitHubFooter url="https://github.com/livepeer/comfystream/blob/main/nodes/tensor_utils/save_tensor.py"/>
+
   </Accordion>
 </AccordionGroup>
 
@@ -46,5 +68,8 @@ Most task-specific nodes are part of the StreamPack, but the ComfyStream package
     <Tip>
       Check out the [Example Workflow](https://github.com/livepeer/comfystream/blob/main/workflows/comfystream/audio-tensor-utils-example-api.json) to see the `PitchShifter` in action.
     </Tip>
+
+    <GitHubFooter url="https://github.com/livepeer/comfystream/blob/main/nodes/audio_utils/pitch_shift.py"/>
+
   </Accordion>
 </AccordionGroup>
