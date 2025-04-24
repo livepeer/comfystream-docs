@@ -24,7 +24,7 @@ The **Super Resolution** node **upscales** video frames with pre-trained models.
     If you prefer to install OpenCV with CUDA support manually, follow the guide in article [Installing OpenCV with CUDA Support](https://medium.com/@juancrrn/installing-opencv-4-with-cuda-in-ubuntu-20-04-fde6d6a0a367).
     This guides you through the multiple steps and prerequisites needed to successfully compile OpenCV package.
     
-    You can use the code block below as a reference, modify the paths and variables to match your system.
+    You can use the following code block as a reference, modify the paths and variables to match your system.
 
     ```bash [expandable]
     # Clone OpenCV repositories
@@ -96,11 +96,11 @@ The **Super Resolution** node **upscales** video frames with pre-trained models.
     ldconfig
     ```
 
-    After the installation, you can verify that OpenCV is installed correctly by running:
+    After the compilation, you can verify that OpenCV is installed correctly by running:
     ```bash
     python3 -c "import cv2; print(cv2.cuda.getCudaEnabledDeviceCount())"
     ```
-    This should output `1` or the number of CUDA-enabled devices if installation was successful.
+    This should output `1` or higher depending on the number of CUDA-enabled devices in your machine if installation was successful.
   </Tab>
 </Tabs>
 
