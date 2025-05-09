@@ -38,7 +38,8 @@
                 "icon": "box",
                 "pages": [
                   "technical/custom-nodes/stream-pack/overview",
-                  "technical/custom-nodes/stream-pack/feature-bank"
+                  "technical/custom-nodes/stream-pack/feature-bank",
+                  "technical/custom-nodes/stream-pack/super-resolution"
                 ]
               },
               "technical/custom-nodes/third-party-nodes"
