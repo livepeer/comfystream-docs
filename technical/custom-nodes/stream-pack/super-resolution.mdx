@@ -3,26 +3,18 @@ title: "Super Resolution"
 description: "Upscale video frames in real-time using GPU acceleration."
 ---
 
-<Note>
-  This node is based on the work by **ryanontheinside** in his GitHub repository [ComfyUI_SuperResolution](https://github.com/ryanontheinside/ComfyUI_SuperResolution).
-</Note>
-
 ## Introduction
 
-The **Super Resolution** node **upscales** video frames with pre-trained models. The process leverages GPU acceleration through **OpenCV** compiled with CUDA support,
- ensuring exceptional speed ideal for real-time applications. When using workflows with base Stable Diffusion models optimized for **512x512**, higher resolutions can compromise efficiency and FPS.
- In these scenarios, a dedicated super-resolution node allows upscaling without significantly affecting performance or quality.
+The **Super Resolution** node **upscales** video frames with pre-trained models. The process leverages GPU acceleration through [OpenCV](https://opencv.org/) compiled with CUDA support, ensuring exceptional speed ideal for real-time applications. When using workflows with base Stable Diffusion models optimized for **512x512**, higher resolutions can compromise efficiency and FPS. In these scenarios, a dedicated super-resolution node allows upscaling without significantly affecting performance or quality.
 
 ## Setup Method
 
 <Tabs>
   <Tab title="Docker Setup (Recommended)">
-    The node is optimized for high-speed upscaling and requires OpenCV with CUDA support. By running ComfyStream with the **[Docker setup](/technical/get-started/install#install-with-docker)**, 
-    you get a precompiled package from [ComfyUI-Stream-Pack/releases](https://github.com/JJassonn69/ComfyUI-Stream-Pack/releases/tag/v1.0) included in the Docker image. This eliminates the need for manual compilation.
+    The node is optimized for high-speed upscaling and requires OpenCV with CUDA support. By running ComfyStream with the **[Docker setup](/technical/get-started/install#install-with-docker)**, you get a precompiled package from [ComfyUI-Stream-Pack/releases](https://github.com/JJassonn69/ComfyUI-Stream-Pack/releases/tag/v1.0) included in the Docker image. This eliminates the need for manual compilation.
   </Tab>
   <Tab title="Manual Installation (Advanced)">
-    If you prefer to install OpenCV with CUDA support manually, follow the guide in article [Installing OpenCV with CUDA Support](https://medium.com/@juancrrn/installing-opencv-4-with-cuda-in-ubuntu-20-04-fde6d6a0a367).
-    This guides you through the multiple steps and prerequisites needed to successfully compile OpenCV package.
+    If you prefer to install OpenCV with CUDA support manually, follow the guide in article [Installing OpenCV with CUDA Support](https://medium.com/@juancrrn/installing-opencv-4-with-cuda-in-ubuntu-20-04-fde6d6a0a367).This guides you through the multiple steps and prerequisites needed to successfully compile OpenCV package.
     
     You can use the following code block as a reference, modify the paths and variables to match your system.
 
@@ -37,26 +29,26 @@ The **Super Resolution** node **upscales** video frames with pre-trained models.
     # Create a toolchain file with absolute path
     cat > custom_toolchain.cmake << EOF
     # Custom toolchain file to exclude Conda paths
-    
+
     # Set system compilers
     set(CMAKE_C_COMPILER "/usr/bin/gcc")
     set(CMAKE_CXX_COMPILER "/usr/bin/g++")
-    
+
     # Set system root directories
     set(CMAKE_FIND_ROOT_PATH "/usr")
     set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
     set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
     set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
     set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
-    
+
     # Explicitly exclude Conda paths
-    list(APPEND CMAKE_IGNORE_PATH 
+    list(APPEND CMAKE_IGNORE_PATH
         "/workspace/miniconda3"
         "/workspace/miniconda3/envs"
         "/workspace/miniconda3/envs/comfystream"
         "/workspace/miniconda3/envs/comfystream/lib"
     )
-    
+
     # Set RPATH settings
     set(CMAKE_SKIP_BUILD_RPATH FALSE)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
@@ -101,6 +93,7 @@ The **Super Resolution** node **upscales** video frames with pre-trained models.
     python3 -c "import cv2; print(cv2.cuda.getCudaEnabledDeviceCount())"
     ```
     This should output `1` or higher depending on the number of CUDA-enabled devices in your machine if installation was successful.
+
   </Tab>
 </Tabs>
 
@@ -126,10 +119,11 @@ The **Super Resolution** node **upscales** video frames with pre-trained models.
   </Step>
   <Step title="Connect Inputs and Configure Parameters">
     - In `SR Model Loader`, you'll see widgets to select the upscaling model and scale factor.
-    - Connect the output of `SR Model Loader` to the input of `SR Upscale`.
-    - In the `SR Upscale` node, toggle the `use CUDA` widget to `true` to enable CUDA acceleration.
+    - Connect the output of `SR Model Loader` to the input of `SR Upscale`. 
+    - In the `SR Upscale` node, toggle the `use CUDA` widget to `true` to enable CUDA acceleration. 
     - Connect an image to the input of `SR Upscale` and a preview node to the output.
   </Step>
+
 </Steps>
 
 <Frame caption="Minimal Super Resolution Node Implementation">
@@ -143,23 +137,35 @@ The **Super Resolution** node **upscales** video frames with pre-trained models.
 
 The following parameters control how the Super Resolution models behave:
 
+<Accordion title="Tips for Tuning and Best Practices">
+
+- **Select the Model for Upscaling** – Choose the model based on desired upscaling quality and performance; refer to the comparison table above.
+- **Scaling Factor Selection** – Consider the required output resolution when choosing the scale factor. A higher scaling factor increases processing time, potentially reducing real-time performance.
+- **Using CUDA Acceleration** – While CPU can be used for upscaling, it is significantly slower. Use CUDA acceleration for optimal performance.
+
+</Accordion>
+
 ### SR Model Loader Node
 
 <ParamField path="model_type" type="string">
-  **Model Type**: Select the upscaling model to use. The quality and performance vary by model. Models are downloaded and loaded automatically when selected in the canvas. Below is a basic comparison of the models.
+  **Model Type**: Select the upscaling model to use. The quality and performance
+  vary by model. Models are downloaded and loaded automatically when selected in
+  the canvas. Below is a basic comparison of the models.
 </ParamField>
 
-| Model | Architecture | Features | Best For | Speed | Quality |
-|-------|--------------|----------|----------|-------|---------|
-| **FSRCNN-small** | Lightweight CNN | Fast, minimal memory use | Real-time processing, mobile | ★★★★★ | ★★ |
-| **FSRCNN** | CNN with larger features | Good balance of speed/quality | General purpose | ★★★★ | ★★★ |
-| **ESPCN** | Sub-pixel convolutions | Efficient upscaling at end | Text/line drawings | ★★★★ | ★★★ |
-| **VDSR** | Very deep CNN | Better edge reconstruction | Detailed images with edges | ★★★ | ★★★★ |
-| **LapSRN** | Laplacian pyramid | Progressive upscaling | Sharp edges, details | ★★★ | ★★★★ |
-| **EDSR** | Deep residual network | Most parameters, best quality | Maximum detail | ★★ | ★★★★★ |
+| Model            | Architecture             | Features                      | Best For                     | Speed | Quality |
+| ---------------- | ------------------------ | ----------------------------- | ---------------------------- | ----- | ------- |
+| **FSRCNN-small** | Lightweight CNN          | Fast, minimal memory use      | Real-time processing, mobile | ★★★★★ | ★★      |
+| **FSRCNN**       | CNN with larger features | Good balance of speed/quality | General purpose              | ★★★★  | ★★★     |
+| **ESPCN**        | Sub-pixel convolutions   | Efficient upscaling at end    | Text/line drawings           | ★★★★  | ★★★     |
+| **VDSR**         | Very deep CNN            | Better edge reconstruction    | Detailed images with edges   | ★★★   | ★★★★    |
+| **LapSRN**       | Laplacian pyramid        | Progressive upscaling         | Sharp edges, details         | ★★★   | ★★★★    |
+| **EDSR**         | Deep residual network    | Most parameters, best quality | Maximum detail               | ★★    | ★★★★★   |
 
 <ParamField path="scale_factor" type="integer">
-  **Scale Factor**: Select the upscaling factor. The image will be upscaled by this factor. For example, if the input image is `512x512`, the output will be `1024x1024` with a scale factor of `2`.
+  **Scale Factor**: Select the upscaling factor. The image will be upscaled by
+  this factor. For example, if the input image is `512x512`, the output will be
+  `1024x1024` with a scale factor of `2`.
 </ParamField>
 
 ### SR Upscale Node
@@ -168,25 +174,16 @@ The following parameters control how the Super Resolution models behave:
   **Use CUDA**: Toggle to `true` to enable CUDA acceleration for upscaling.
 </ParamField>
 
-<Accordion title="Tips for Tuning and Best Practices">
-
-- **Select the Model for Upscaling**: Choose the model based on desired upscaling quality and performance; refer to the comparison table above.
-- **Scaling Factor Selection**: Consider the required output resolution when choosing the scale factor. A higher scaling factor increases processing time, potentially reducing real-time performance.
-- **Using CUDA Acceleration**: While CPU can be used for upscaling, it is significantly slower. Use CUDA acceleration for optimal performance.
-
-</Accordion>
-
 ## Strengths and Limitations
 
 While the Super Resolution node offers significant performance benefits compared to other upscaling methods, it also introduces a few trade-offs depending on your use case.
 
 ### Strengths
 
-- **Wide suite of supported models**: Option to choose from multiple models (FSRCNN, ESPCN, LapSRN, EDSR) with different quality/speed tradeoffs.
-- **Modular Design**: Once a model is loaded, it can be reused across multiple upscaling operations.
-- **Fast performance via CUDA**: Configurable CUDA acceleration for optimal performance.
-- **Multiple Scale Factors**: Support for 2x, 3x, and 4x upscaling
-
+- **Wide suite of supported models** – Option to choose from multiple models (FSRCNN, ESPCN, LapSRN, EDSR) with different quality/speed tradeoffs.
+- **Modular Design** – Once a model is loaded, it can be reused across multiple upscaling operations.
+- **Fast performance via CUDA** – Configurable CUDA acceleration for optimal performance.
+- **Multiple Scale Factors** – Support for 2x, 3x, and 4x upscaling.
 
 ### Limitations
 
@@ -194,12 +191,12 @@ While the Super Resolution node offers significant performance benefits compared
 
 ## Acknowledgments
 
-<Accordion title="Credits">
+<Accordion title="References">
+  This nodepack implements models originally created by:
 
-This nodepack implements models originally created by:
+    - [FSRCNN (Dong et al., 2016)](https://mmlab.ie.cuhk.edu.hk/projects/FSRCNN.html) – [GitHub Repository](https://github.com/ryanontheinside/FSRCNN_Tensorflow)
+    - [EDSR (Lim et al., 2017)](https://arxiv.org/abs/1707.02921) – [GitHub Repository](https://github.com/ryanontheinside/EDSR_Tensorflow)
+    - [ESPCN (Shi et al., 2016)](https://arxiv.org/abs/1609.05158) – [GitHub Repository](https://github.com/ryanontheinside/TF-ESPCN)
+    - [LapSRN (Lai et al., 2017)](https://arxiv.org/abs/1710.01992) – [GitHub Repository](https://github.com/ryanontheinside/TF-LapSRN)
 
-- FSRCNN: [Dong et al., 2016](https://mmlab.ie.cuhk.edu.hk/projects/FSRCNN.html) - [Github](https://github.com/ryanontheinside/FSRCNN_Tensorflow)
-- EDSR: [Lim et al., 2017](https://arxiv.org/abs/1707.02921) - [Github](https://github.com/ryanontheinside/EDSR_Tensorflow)
-- ESPCN: [Shi et al., 2016](https://arxiv.org/abs/1609.05158) - [Github](https://github.com/ryanontheinside/TF-ESPCN)
-- LapSRN: [Lai et al., 2017](https://arxiv.org/abs/1710.01992) - [Github](https://github.com/ryanontheinside/TF-LapSRN)
 </Accordion>
