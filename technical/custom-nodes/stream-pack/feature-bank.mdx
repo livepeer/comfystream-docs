@@ -85,7 +85,18 @@ The node supports any self-attention-based model (e.g., Stable Diffusion) and wo
 
 ## Parameters
 
-The Feature Bank node includes the following configurable parameters:
+The following parameters can be configured in the Feature Bank node:
+
+<Accordion title="Tips for Tuning and Best Practices">
+
+- **Start with a moderate cache interval.** Lower values improve consistency but increase memory usage.
+- **Set injection strength gradually.** Start around 0.5 to balance coherence and novelty.
+- **Match similarity threshold to your content.** Higher values are best for static backgrounds or subjects.
+- **Use fewer cached frames for fast-changing scenes,** and more for looping or stable content.
+- **Monitor memory use,** especially with low cache intervals or high resolutions.
+- **Experiment creatively.** Small tweaks to injection or similarity can unlock unique visual styles.
+
+</Accordion>
 
 <ParamField path="feature_cache_interval" type="integer">
   **Feature Cache Interval**: Determines how often features from the attention
@@ -114,17 +125,6 @@ The Feature Bank node includes the following configurable parameters:
   **Feature Bank Max Frames**: Maximum number of past frames to cache. Older
   frames are automatically discarded.
 </ParamField>
-
-<Accordion title="Tips for Tuning and Best Practices">
-
-- **Start with a moderate cache interval.** Lower values improve consistency but increase memory usage.
-- **Set injection strength gradually.** Start around 0.5 to balance coherence and novelty.
-- **Match similarity threshold to your content.** Higher values are best for static backgrounds or subjects.
-- **Use fewer cached frames for fast-changing scenes,** and more for looping or stable content.
-- **Monitor memory use,** especially with low cache intervals or high resolutions.
-- **Experiment creatively.** Small tweaks to injection or similarity can unlock unique visual styles.
-
-</Accordion>
 
 ## Strengths and Limitations
 
