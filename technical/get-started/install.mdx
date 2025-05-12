@@ -224,8 +224,11 @@ Use [Ansible](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_i
   </Step>
   <Step title="Open required ports">
     Allow incoming traffic on:
-    - **22** (SSH)  
-    - **8189** (ComfyStream HTTPS)  
+    - **22** (SSH – internal port)
+    - **8189** (ComfyStream HTTPS – internal port)
+    <Note>
+      Ensure your cloud provider maps these to **public ports**. Internal port **8189** is proxied to **8188**, which serves the ComfyUI interface.
+    </Note>
   </Step>
   <Step title="Install Ansible">
     Install Ansible on your **local machine** (not the VM). See the [official installation guide](https://docs.ansible.com/ansible/latest/installation_guide/index.html).
@@ -269,10 +272,7 @@ Use [Ansible](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_i
     </Info>
   </Step>
   <Step title="Open ComfyUI">
-    Visit `https://<VM_IP>:8189` in your browser.  
-    <Note>
-      Port **8189** is used instead of 8188 due to reverse proxy routing.
-    </Note>
+    Visit `https://<VM_IP>:<PUBLIC_COMFYUI_PORT>` in your browser.
   </Step>
 </Steps>
 
