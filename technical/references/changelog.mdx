@@ -11,7 +11,11 @@ icon: "list-timeline"
         ![ComfyStream Multi-Resolution](/images/changelog/comfystream-multi-resolution.png)
     </Frame>
 
-    ComfyStream v0.1.0 delivers significant enhancements for visual quality and developer flexibility with **multi-resolution support**, an **improved depth mapping model**, and a new **exportable pipeline class** for seamless integration into custom applications. This release is available as Docker images at `livepeer/comfyui-base:v0.1.0` and `livepeer/comfystream:v0.1.0`.
+    <Warning>Requires ComfyUI version [0.3.27](https://github.com/comfyanonymous/ComfyUI/releases/tag/v0.3.27) or older due to dependency constraints.</Warning>
+
+    <Tip>View the full detailed changelog on [GitHub](https://github.com/livepeer/comfystream/compare/v0.0.5...v0.1.0).</Tip>
+
+    This release introduces significant enhancements for visual quality and developer flexibility, including **multi-resolution support**, an **improved depth mapping model**, and a new **exportable pipeline class** for seamless integration into custom applications. Docker images are available at `livepeer/comfyui-base:v0.1.0` and `livepeer/comfystream:v0.1.0`.
 
     ### New Features
     - **Multi-Resolution Support:** Dynamic resolution handling with precompiled TensorRT engine examples supporting combinations of width/height from 448px to 704px
@@ -23,13 +27,7 @@ icon: "list-timeline"
 
     ### Developer Experience
     - **Simplified Integration:** Refactored package structure to make ComfyStream easier to import and use in custom applications
-    - **ComfyUI Registry Updates:** Refreshed logo on ComfyUI Registry
 
-    <Tip>
-        **Note:** ComfyStream v0.1.0 requires ComfyUI version 0.3.27 or older due to dependency constraints. [ComfyUI v0.3.27](https://github.com/comfyanonymous/ComfyUI/releases/tag/v0.3.27)
-    </Tip>
-
-    <Tip>View the full detailed changelog on [GitHub](https://github.com/livepeer/comfystream/compare/v0.0.5...v0.1.0).</Tip>
 </Update>
 
 <Update label="March 2025" description="v0.0.5, v0.0.4" tags={["comfystream"]}>
