@@ -58,12 +58,19 @@ If you already have ComfyUI installed, the easiest way to install ComfyStream is
 <Accordion title="Manual Installation (Cloning Repository)">
   If you prefer to install ComfyStream manually by cloning the repository instead of using the Manager, follow these steps:
   ```bash
-  cd /path/to/ComfyUI/custom_nodes/
-  git clone https://github.com/livepeer/comfystream.git
-  cd comfystream
-  pip install -r requirements.txt
+  git clone https://github.com/hiddenswitch/ComfyUI
+  cd ComfyUI && pip install -e .
+  cd custom_nodes/
+  git clone https://github.com/livepeer/comfystream.git && cd comfystream/
+  pip install -e .
+  python install.py ## this will install the webui files for comfystream 
   ```
-  After completing the installation, restart ComfyUI to load the new custom node.
+  After completing the installation, navigate to the root of the ComfyUI directory.
+  ```bash
+  cd ComfyUI
+  python main.py --listen --front-end-version Comfy-Org/ComfyUI_frontend@latest
+  ```
+  This will start the ComfyUI server with ComfyStream installed.
 </Accordion>
 {/* <!-- prettier-ignore-end --> */}
 
