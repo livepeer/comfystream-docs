@@ -49,9 +49,11 @@
             "group": "References",
             "pages": [
               "technical/references/changelog",
-              "technical/references/media-kit"
+              "technical/references/media-kit",
+              "technical/references/contributing"
             ]
           }
+
         ]
       }
     ],
