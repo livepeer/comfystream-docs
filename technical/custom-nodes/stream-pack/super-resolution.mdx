@@ -101,9 +101,9 @@ The **Super Resolution** node **upscales** video frames with pre-trained models.
       -D HAVE_opencv_python3=ON \
       -D WITH_NVCUVID=OFF \
       -D WITH_NVCUVENC=OFF \
-      .. && \  
-    make -j$(nproc) && \
-    make install && \
+      ..  
+    make -j$(nproc)
+    make install
     ldconfig
     ```
     This will install the opencv package **cv2** in `/usr/local/lib/python3.11/site-packages`.
