@@ -202,7 +202,7 @@ RunPod provides a simple one-click deployment of ComfyStream in a managed contai
     <Note>
       RunPod does not persist pod data by default. To ensure models and engines persist across pod restarts, use the RunPod template [livepeer-comfystream-volume](https://console.runpod.io/deploy?template=j4p1g7t5vs&ref=u8tlskew)
 
-      The **comfystream-volume** template uses the `--use-volume` flag to save all models and engines to the mount path `/app/storage`
+      This template uses the `--use-volume` flag to save all models and engines to the mount path `/app/storage`. A network volume is required.
     </Note>
 
   </Step>
