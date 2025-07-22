@@ -198,9 +198,11 @@ RunPod provides a simple one-click deployment of ComfyStream in a managed contai
 <Steps>
   <Step title="Launch the RunPod template">
     Use this template to get started:
-    [livepeer-comfystream](https://runpod.io/console/deploy?template=w01m180vxx&ref=u8tlskew)
+    [livepeer-comfystream](https://console.runpod.io/deploy?template=w01m180vxx&ref=u8tlskew)
     <Note>
-      The template now uses the new `--use-volume` flag for improved performance with host volume mounting. This replaces the previous two separate templates (with and without volume support) with a single, more performant solution.
+      RunPod does not persist pod data by default. To ensure models and engines persist across pod restarts, use the RunPod template [livepeer-comfystream-volume](https://console.runpod.io/deploy?template=j4p1g7t5vs&ref=u8tlskew)
+
+      The **comfystream-volume** template uses the `--use-volume` flag to save all models and engines to the mount path `/app/storage`
     </Note>
 
   </Step>
@@ -223,40 +225,6 @@ RunPod provides a simple one-click deployment of ComfyStream in a managed contai
     Click the **HTTP Service → :8188** link. It will open in a new browser tab.
   </Step>
 </Steps>
-
-#### Understanding the `--use-volume` Flag
-
-The `--use-volume` flag is a new feature that improves performance when using host volume mounting, particularly in cloud environments like RunPod. Here's what you need to know:
-
-<AccordionGroup>
-  <Accordion title="What does `--use-volume` do?">
-    The `--use-volume` flag enables more performant host volume mounting by optimizing how ComfyStream interacts with mounted volumes. This is especially beneficial when:
-    - Running in cloud environments with network-attached storage
-    - Using persistent volumes for model storage
-    - Working with large model files that need frequent access
-  </Accordion>
-
-  <Accordion title="When should I use it?">
-    You should use the `--use-volume` flag when:
-    - Deploying on RunPod or other cloud platforms
-    - Using persistent volumes for data storage
-    - Experiencing slow model loading or file access
-    - Working with large workflows that require frequent model access
-  </Accordion>
-
-  <Accordion title="How to add it to your command">
-    Simply add `--use-volume` to your existing Docker run command:
-    ```bash
-    docker run -it --gpus all \
-      -p 8188:8188 \
-      -p 8889:8889 \
-      -p 5678:5678 \
-      -v ~/models/ComfyUI--models:/workspace/ComfyUI/models \
-      -v ~/models/ComfyUI--output:/workspace/ComfyUI/output \
-      livepeer/comfystream:stable --download-models --build-engines --server --use-volume
-    ```
-  </Accordion>
-</AccordionGroup>
 
 #### Deploy with Ansible
 
@@ -309,9 +277,6 @@ Use [Ansible](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_i
     <Note>
       The playbook pulls a ~20GB Docker image on the VM. This may take a while on first run.
     </Note>
-    <Info>
-      The Ansible playbook automatically includes the `--use-volume` flag for improved performance with cloud storage.
-    </Info>
   </Step>
   <Step title="Monitor download progress (optional)">
     If needed, SSH into the VM and run:
