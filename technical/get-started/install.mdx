@@ -169,21 +169,27 @@ First, install the required system software:
       -p 8188:8188 \
       -p 8889:8889 \
       -p 5678:5678 \
+      -p 3000:3000 \
       -v ~/models/ComfyUI--models:/workspace/ComfyUI/models \
       -v ~/models/ComfyUI--output:/workspace/ComfyUI/output \
-      livepeer/comfystream:stable --download-models --build-engines --server
+      livepeer/comfystream:latest --download-models --build-engines --api --ui
     ```
     <Note>
-      The `--download-models` flag downloads some default models.  
-      `--build-engines` optimizes the runtime for your GPU.  
-      These are only needed the first time (or when adding new models).
+      Available flags:
+      - `--download-models` downloads some default models  
+      - `--build-engines` optimizes the runtime for your GPU  
+      - `--api` enables the API server
+      - `--ui` starts the ComfyStream UI (accessible on port 3000)
+      - `--use-volume` enables more performant volume mounting (recommended for cloud environments)
+      
+      The first two flags are only needed the first time (or when adding new models).
     </Note>
-    <Info>
-      For improved performance with host volume mounting, you can add the `--use-volume` flag to the command above. This flag enables more performant volume mounting and is particularly beneficial in cloud environments.
-    </Info>
   </Step>
   <Step title="Access ComfyUI">
     Open your browser and go to [http://localhost:8188](http://localhost:8188) to start using ComfyUI with ComfyStream.
+  </Step>
+  <Step title="Access ComfyStream UI">
+    The ComfyStream UI is available at [http://localhost:3000](http://localhost:3000) where you can start live streams directly by keeping the stream URL as `http://localhost:8889` and selecting a workflow.
   </Step>
 </Steps>
 
@@ -198,11 +204,9 @@ RunPod provides a simple one-click deployment of ComfyStream in a managed contai
 <Steps>
   <Step title="Launch the RunPod template">
     Use this template to get started:
-    [livepeer-comfystream](https://console.runpod.io/deploy?template=w01m180vxx&ref=u8tlskew)
+    [livepeer-comfystream](https://console.runpod.io/deploy?template=p6j5o97hbw&ref=u8tlskew)
     <Note>
-      RunPod does not persist pod data by default. To ensure models and engines persist across pod restarts, use the RunPod template [livepeer-comfystream-volume](https://console.runpod.io/deploy?template=j4p1g7t5vs&ref=u8tlskew)
-
-      This template uses the `--use-volume` flag to save all models and engines to the mount path `/app/storage`. A network volume is required.
+      This template includes the ComfyStream UI and uses the `--use-volume` flag for improved performance. A network volume is recommended for persistence across pod restarts.
     </Note>
 
   </Step>
@@ -223,6 +227,11 @@ RunPod provides a simple one-click deployment of ComfyStream in a managed contai
   </Step>
   <Step title="Open ComfyUI">
     Click the **HTTP Service → :8188** link. It will open in a new browser tab.
+  </Step>
+  <Step title="Access ComfyStream UI">
+    To access the ComfyStream UI, use the TCP ports to form a URL beginning with `https://` followed by the IP:port for port 3000. 
+    
+    You can start a live stream directly from the ComfyStream UI by keeping the stream URL as `http://localhost:8889` and selecting a workflow.
   </Step>
 </Steps>
 
