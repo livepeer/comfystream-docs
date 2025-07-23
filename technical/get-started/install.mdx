@@ -178,6 +178,9 @@ First, install the required system software:
       `--build-engines` optimizes the runtime for your GPU.  
       These are only needed the first time (or when adding new models).
     </Note>
+    <Info>
+      For improved performance with host volume mounting, you can add the `--use-volume` flag to the command above. This flag enables more performant volume mounting and is particularly beneficial in cloud environments.
+    </Info>
   </Step>
   <Step title="Access ComfyUI">
     Open your browser and go to [http://localhost:8188](http://localhost:8188) to start using ComfyUI with ComfyStream.
@@ -195,9 +198,11 @@ RunPod provides a simple one-click deployment of ComfyStream in a managed contai
 <Steps>
   <Step title="Launch the RunPod template">
     Use this template to get started:
-    [livepeer-comfystream](https://runpod.io/console/deploy?template=w01m180vxx&ref=u8tlskew)
+    [livepeer-comfystream](https://console.runpod.io/deploy?template=w01m180vxx&ref=u8tlskew)
     <Note>
-      Initial deployment to a network volume may take 20-45 minutes. For faster startup without data persistence, use the [no-volume version](https://runpod.io/console/deploy?template=j4p1g7t5vs&ref=u8tlskew).
+      RunPod does not persist pod data by default. To ensure models and engines persist across pod restarts, use the RunPod template [livepeer-comfystream-volume](https://console.runpod.io/deploy?template=j4p1g7t5vs&ref=u8tlskew)
+
+      This template uses the `--use-volume` flag to save all models and engines to the mount path `/app/storage`. A network volume is required.
     </Note>
 
   </Step>
