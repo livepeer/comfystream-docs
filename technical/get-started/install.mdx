@@ -169,21 +169,29 @@ First, install the required system software:
       -p 8188:8188 \
       -p 8889:8889 \
       -p 5678:5678 \
+      -p 3000:3000 \
       -v ~/models/ComfyUI--models:/workspace/ComfyUI/models \
       -v ~/models/ComfyUI--output:/workspace/ComfyUI/output \
-      livepeer/comfystream:stable --download-models --build-engines --server
+      livepeer/comfystream:stable --download-models --build-engines --api --ui
     ```
     <Note>
-      The `--download-models` flag downloads some default models.  
-      `--build-engines` optimizes the runtime for your GPU.  
-      These are only needed the first time (or when adding new models).
+      Available flags:
+      - `--download-models` downloads some default models  
+      - `--build-engines` optimizes the runtime for your GPU  
+      - `--api` enables the API server
+      - `--ui` starts the ComfyStream UI (accessible on port 3000)
+      - `--use-volume` should be used with a mount point at /app/storage. It is used during startup to save/load models and compiled engines to a host volume mount for persistence
+      
+      The first two flags are only needed the first time (or when adding new models).
     </Note>
-    <Info>
-      For improved performance with host volume mounting, you can add the `--use-volume` flag to the command above. This flag enables more performant volume mounting and is particularly beneficial in cloud environments.
-    </Info>
   </Step>
   <Step title="Access ComfyUI">
     Open your browser and go to [http://localhost:8188](http://localhost:8188) to start using ComfyUI with ComfyStream.
+  </Step>
+  <Step title="Access ComfyStream UI">
+    The ComfyStream UI is available at [http://localhost:3000](http://localhost:3000) where you can start live streams directly by keeping the stream URL as `http://localhost:8889` and selecting a workflow.
+    
+    ![ComfyStream UI](../../images/comfystream-ui.png)
   </Step>
 </Steps>
 
@@ -223,6 +231,13 @@ RunPod provides a simple one-click deployment of ComfyStream in a managed contai
   </Step>
   <Step title="Open ComfyUI">
     Click the **HTTP Service → :8188** link. It will open in a new browser tab.
+  </Step>
+  <Step title="Access ComfyStream UI">
+    To access the ComfyStream UI, use the TCP ports to form a URL beginning with `https://` followed by the IP:port for port 3000. 
+    
+    You can start a live stream directly from the ComfyStream UI by keeping the stream URL as `http://localhost:8889` and selecting a workflow.
+    
+    ![ComfyStream UI](../../images/comfystream-ui.png)
   </Step>
 </Steps>
 
@@ -281,7 +296,7 @@ Use [Ansible](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_i
   <Step title="Monitor download progress (optional)">
     If needed, SSH into the VM and run:
     ```bash
-    docker pull livepeer/comfystream:latest
+    docker pull livepeer/comfystream:stable
     ```
     <Info>
       Helpful if you're unsure whether the download is progressing during first-time setup.
