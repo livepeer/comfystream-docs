@@ -172,7 +172,7 @@ First, install the required system software:
       -p 3000:3000 \
       -v ~/models/ComfyUI--models:/workspace/ComfyUI/models \
       -v ~/models/ComfyUI--output:/workspace/ComfyUI/output \
-      livepeer/comfystream:latest --download-models --build-engines --api --ui
+      livepeer/comfystream:stable --download-models --build-engines --api --ui
     ```
     <Note>
       Available flags:
@@ -180,7 +180,7 @@ First, install the required system software:
       - `--build-engines` optimizes the runtime for your GPU  
       - `--api` enables the API server
       - `--ui` starts the ComfyStream UI (accessible on port 3000)
-      - `--use-volume` enables more performant volume mounting (recommended for cloud environments)
+      - `--use-volume` should be used with a mount point at /app/storage. It is used during startup to save/load models and compiled engines to a host volume mount for persistence
       
       The first two flags are only needed the first time (or when adding new models).
     </Note>
@@ -206,9 +206,11 @@ RunPod provides a simple one-click deployment of ComfyStream in a managed contai
 <Steps>
   <Step title="Launch the RunPod template">
     Use this template to get started:
-    [livepeer-comfystream](https://console.runpod.io/deploy?template=p6j5o97hbw&ref=u8tlskew)
+    [livepeer-comfystream](https://console.runpod.io/deploy?template=w01m180vxx&ref=u8tlskew)
     <Note>
-      This template includes the ComfyStream UI and uses the `--use-volume` flag for improved performance. A network volume is recommended for persistence across pod restarts.
+      RunPod does not persist pod data by default. To ensure models and engines persist across pod restarts, use the RunPod template [livepeer-comfystream-volume](https://console.runpod.io/deploy?template=j4p1g7t5vs&ref=u8tlskew)
+
+      This template uses the `--use-volume` flag to save all models and engines to the mount path `/app/storage`. A network volume is required.
     </Note>
 
   </Step>
@@ -294,7 +296,7 @@ Use [Ansible](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_i
   <Step title="Monitor download progress (optional)">
     If needed, SSH into the VM and run:
     ```bash
-    docker pull livepeer/comfystream:latest
+    docker pull livepeer/comfystream:stable
     ```
     <Info>
       Helpful if you're unsure whether the download is progressing during first-time setup.
