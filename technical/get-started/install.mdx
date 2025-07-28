@@ -172,17 +172,18 @@ First, install the required system software:
       -p 3000:3000 \
       -v ~/models/ComfyUI--models:/workspace/ComfyUI/models \
       -v ~/models/ComfyUI--output:/workspace/ComfyUI/output \
-      livepeer/comfystream:stable --download-models --build-engines --api --ui
+      livepeer/comfystream:stable --download-models --build-engines --server
     ```
     <Note>
       Available flags:
       - `--download-models` downloads some default models  
       - `--build-engines` optimizes the runtime for your GPU  
+      - `--server` starts ComfyUI server (accessible on port 8188)
       - `--api` enables the API server
       - `--ui` starts the ComfyStream UI (accessible on port 3000)
       - `--use-volume` should be used with a mount point at /app/storage. It is used during startup to save/load models and compiled engines to a host volume mount for persistence
       
-      The first two flags are only needed the first time (or when adding new models).
+      The `--download-models` and `--build-engines` flags are only needed the first time (or when adding new models).
     </Note>
   </Step>
   <Step title="Access ComfyUI">
