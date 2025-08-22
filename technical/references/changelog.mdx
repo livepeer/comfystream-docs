@@ -4,6 +4,58 @@ description: "Track the latest updates, features, improvements, and bug fixes fo
 icon: "list-timeline"
 ---
 
+<Update label="July 2025" description="v0.1.3, v0.1.4" tags={["comfystream"]}>
+    ## RTX 5090 Support and Infrastructure Improvements
+
+    <Tip>View the full detailed changelog on [GitHub](https://github.com/livepeer/comfystream/releases/tag/v0.1.4).</Tip>
+
+    This release adds support for NVIDIA's latest RTX 5090 GPUs and includes significant infrastructure improvements for better development experience and deployment flexibility. The base image has been updated to support the latest CUDA and TensorRT versions.
+
+    ### New Hardware Support
+    - **RTX 5090 GPU Support:** Full compatibility with NVIDIA's latest Blackwell architecture
+    - **Updated CUDA Requirements:** Minimum supported driver version `NVIDIA 570.124.06` with `CUDA 12.8`
+    - **PyTorch Blackwell Support:** Updated PyTorch for optimal performance on RTX 5090
+
+    ### Infrastructure & Developer Experience
+    - **Entrypoint Flexibility:** Added `--api` and `--ui` flags to entrypoint.sh for selective service startup
+    - **FasterLivePortrait Workflow:** New workflow documentation for FasterLivePortrait integration
+    - **Improved Container Stability:** Fixed devcontainer loading issues and conda environment installation
+    - **Better Volume Management:** Enhanced volume mount for persistent storage across container restarts
+
+    ### Base System Updates
+    - **CUDA 12.8 and TensorRT 10.12:** Updated base to support newer compute capability GPUs.
+    - **Dependency Stability:** Pinned `numpy<2.0` for consistent behavior across environments
+    - **Network Configuration:** Fixed server manager host binding for proper network access
+
+</Update>
+
+<Update label="June 2025" description="v0.1.1, v0.1.2" tags={["comfystream"]}>
+    ## MPEG Stream Egress and OBS Integration
+
+    <Tip>View the full detailed changelog on [GitHub](https://github.com/livepeer/comfystream/releases/tag/v0.1.2).</Tip>
+
+    This release introduces token-gated MPEG stream egress capabilities, enabling direct OBS integration for live streaming workflows. Along with significant stability improvements through dependency pinning and bug fixes.
+
+    ### New Features
+    - **Token-Gated MPEG Stream Egress:** External MPEG stream endpoint with authentication for secure access
+    - **OBS Video Source Support:** Demo page and direct OBS integration for capturing ComfyStream output in live streaming setups
+    - **Separate OBS Tab:** Dedicated interface for OBS-specific functionality and configuration
+
+    ### Stability & Performance
+    - **Dependency Pinning:** Pinned critical packages for improved stability:
+      - xformers==0.0.30
+      - pytorch==2.7.0
+      - onnxmltools==1.13.0
+    - **Client API Fixes:** Resolved `comfystream.client.update_prompts` lock issues and error handling
+    - **Build Process Optimization:** Streamlined Docker workflows by removing separate build processes
+
+    ### Developer Experience
+    - **Contributing Guide:** Added comprehensive documentation for project contributors
+    - **Volume Mount Improvements:** Enhanced volume handling with proper --server flag qualification
+    - **CI/CD Enhancements:** Improved workflow triggers and build automation for ai-runner integration
+
+</Update>
+
 <Update label="May 2025" description="v0.1.0" tags={["comfystream"]}>
     ## Multi Resolution, Upscaling and Pipeline Integration
 
