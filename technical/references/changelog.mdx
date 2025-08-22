@@ -13,17 +13,17 @@ icon: "list-timeline"
 
     ### New Hardware Support
     - **RTX 5090 GPU Support:** Full compatibility with NVIDIA's latest Blackwell architecture
-    - **Updated CUDA Requirements:** Minimum supported NVIDIA CUDA driver version `570.124.06` with `CUDA 12.8`
+    - **Updated CUDA Requirements:** Minimum supported driver version `NVIDIA 570.124.06` with `CUDA 12.8`
     - **PyTorch Blackwell Support:** Updated PyTorch for optimal performance on RTX 5090
 
     ### Infrastructure & Developer Experience
-    - **Enhanced Entrypoint Flexibility:** Added `--api` and `--ui` flags to entrypoint.sh for selective service startup
+    - **Entrypoint Flexibility:** Added `--api` and `--ui` flags to entrypoint.sh for selective service startup
     - **FasterLivePortrait Workflow:** New workflow documentation for FasterLivePortrait integration
     - **Improved Container Stability:** Fixed devcontainer loading issues and conda environment installation
     - **Better Volume Management:** Enhanced volume mount for persistent storage across container restarts
 
     ### Base System Updates
-    - **CUDA 12.8 and TensorRT 10.12:** Updated base image for improved performance and compatibility
+    - **CUDA 12.8 and TensorRT 10.12:** Updated base to support newer compute capability GPUs.
     - **Dependency Stability:** Pinned `numpy<2.0` for consistent behavior across environments
     - **Network Configuration:** Fixed server manager host binding for proper network access
 
