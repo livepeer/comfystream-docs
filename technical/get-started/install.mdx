@@ -39,7 +39,7 @@ If you already have ComfyUI installed, the easiest way to install ComfyStream is
       ComfyUI](https://github.com/comfyanonymous/ComfyUI).
     </Note>
     <Note>
-      ComfyUI must be run with frontend version `v1.24.2`. You can do this by launching ComfyUI with the `--front-end-version v1.24.2` flag.
+      ComfyUI must be run with frontend version `v1.24.2` or older. You can do this by launching ComfyUI with the flag `--front-end-version Comfy-Org/ComfyUI_frontend@v1.24.2`
     </Note>
   </Step>
   <Step title="Install ComfyUI Manager (if needed)">
@@ -71,7 +71,7 @@ If you already have ComfyUI installed, the easiest way to install ComfyStream is
   After completing the installation, navigate to the root of the ComfyUI directory.
   ```bash
   cd ComfyUI
-  python main.py --listen --front-end-version v1.24.2
+  python main.py --listen --front-end-version Comfy-Org/ComfyUI_frontend@v1.24.2
   ```
   This will start the ComfyUI server with ComfyStream installed.
 </Accordion>
