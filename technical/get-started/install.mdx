@@ -58,15 +58,36 @@ If you already have ComfyUI installed, the easiest way to install ComfyStream is
 
 {/* <!-- prettier-ignore-start --> */}
 
-<Accordion title="Manual Installation (Cloning Repository)">
+## Manual Installation
+
+If you prefer more control over the installation process, you can install ComfyStream manually using one of the following methods:
+<Note>
+  Python 3.12 or greater is required
+</Note>
+<Accordion title="Install ComfyStream via comfy-cli">
+The following commands install the latest version of ComfyUI and ComfyStream
+  ```bash
+  pip install comfy-cli
+  comfy install
+  comfy node registry-install comfystream
+  ```
+  After completing the installation, start ComfyUI with the following command
+  ```bash
+  comfy launch -- --listen 0.0.0.0 --port 8188 --front-end-version Comfy-Org/ComfyUI_frontend@v1.24.2
+  ```
+  This will start the ComfyUI server with ComfyStream installed.
+</Accordion>
+
+<Accordion title="Cloning Repository">
   If you prefer to install ComfyStream manually by cloning the repository instead of using the Manager, follow these steps:
   ```bash
-  git clone https://github.com/hiddenswitch/ComfyUI
-  cd ComfyUI && pip install -e .
-  cd custom_nodes/
-  git clone https://github.com/livepeer/comfystream.git && cd comfystream/
-  pip install -e .
-  python install.py ## this will install the webui files for comfystream 
+  git clone https://github.com/comfyanonymous/ComfyUI
+  cd ComfyUI
+  pip -r requirements.txt
+  cd custom_nodes
+  git clone https://github.com/livepeer/comfystream.git
+  cd comfystream
+  python install.py
   ```
   After completing the installation, navigate to the root of the ComfyUI directory.
   ```bash
